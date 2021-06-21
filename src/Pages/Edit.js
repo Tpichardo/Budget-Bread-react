@@ -4,7 +4,6 @@ import EditTransactionForm from '../Components/EditTransactionForm';
 function Edit({ updateTransaction, transactions }) {
     return (
         <div>
-            <h1>Edit</h1>
             <EditTransactionForm updateTransaction={updateTransaction} transactions={transactions} />
         </div>
     );

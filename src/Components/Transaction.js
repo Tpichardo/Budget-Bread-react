@@ -16,7 +16,7 @@ const Transaction = ({ transaction, index }) => {
                 <tr>
                     <td>{transaction.date}</td>
                     <td><Link to={`/transactions/${index}`}>{transaction.name}</Link></td>
-                    <td>{transaction.amount}</td>
+                    <td>{Number(transaction.amount).toFixed(2)}</td>
                 </tr>
             </tbody>
         </Table>
