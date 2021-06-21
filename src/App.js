@@ -4,7 +4,9 @@ import { useState, useEffect } from 'react'
 import { Switch, Route } from 'react-router-dom';
 import axios from 'axios';
 import { apiURL } from './util/apiURL';
-import './App.css';
+
+//BOOSTRAP
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 //Pages
