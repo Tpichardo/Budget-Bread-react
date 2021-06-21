@@ -43,6 +43,11 @@ function TransactionDetails(props) {
             <div>
                 <button onClick={handleDelete}>Delete</button>
             </div>
+            <div>
+                <Link to={'/transactions'}>
+                    <button>Back</button>
+                </Link>
+            </div>
         </article>
     )
 }
