@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
+import Container from 'react-bootstrap/Container';
 
 function NewTransactionForm(props) {
     const [transaction, setTransaction] = useState({
@@ -24,8 +25,8 @@ function NewTransactionForm(props) {
     }
 
     return (
-        <div>
-            <h1>Add New Transaction:</h1>
+        <Container>
+            <h1>Add New Transaction</h1>
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="date">
                     <Form.Label>Date</Form.Label>
@@ -82,8 +83,7 @@ function NewTransactionForm(props) {
                     Submit
                 </Button>
             </Form>
-        </div>
-
+        </Container>
     )
 }
 

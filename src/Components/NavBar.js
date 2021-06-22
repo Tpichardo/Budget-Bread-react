@@ -8,9 +8,9 @@ const NavBar = () => {
     return (
         <Navbar bg="light" expand="lg">
             <Container>
-                <Navbar.Brand>Budgeting App</Navbar.Brand>
+                <Navbar.Brand>Bread</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
+                <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
                     <Nav>
                         <Nav.Item>
                             <Nav.Link as={NavLink} to='/'>Home</Nav.Link>

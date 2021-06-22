@@ -6,6 +6,7 @@ import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
+import Container from 'react-bootstrap/Container';
 
 const API = apiURL()
 
@@ -43,7 +44,7 @@ function EditTransactionForm(props) {
     };
 
     return (
-        <div>
+        <Container>
             <h1>Edit Transaction</h1>
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="date">
@@ -107,7 +108,8 @@ function EditTransactionForm(props) {
                     Back
                 </Button>
             </Link>
-        </div>
+        </Container>
+
     )
 }
 

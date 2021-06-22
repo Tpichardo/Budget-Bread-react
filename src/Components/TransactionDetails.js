@@ -39,7 +39,6 @@ function TransactionDetails(props) {
             <Card.Body>
                 <Card.Title>{transaction.name}</Card.Title>
                 {transaction.amount < 0 ? <Card.Text className="text-danger">Withdrawl: {transaction.amount}</Card.Text> : <Card.Text className="text-success">Deposit:{transaction.amount}</Card.Text>}
-                {/* <Card.Text>{transaction.amount < 0 ? 'Withdrawl' : 'Deposit'}: {transaction.amount}</Card.Text> */}
                 <Card.Text>
                     From: {transaction.from}
                 </Card.Text>
