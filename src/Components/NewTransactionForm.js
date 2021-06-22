@@ -31,7 +31,6 @@ function NewTransactionForm(props) {
                 <Form.Group controlId="date">
                     <Form.Label>Date</Form.Label>
                     <Form.Control
-                        id="date"
                         value={transaction.date}
                         type="date"
                         required
@@ -41,7 +40,6 @@ function NewTransactionForm(props) {
                 <Form.Group controlId="name">
                     <Form.Label>Name</Form.Label>
                     <Form.Control
-                        id="name"
                         value={transaction.name}
                         type="text"
                         required
@@ -61,7 +59,6 @@ function NewTransactionForm(props) {
                         required
                         onChange={handleChange}
                         placeholder="Amount"
-                        required
                     />
                     <InputGroup.Append>
                         <InputGroup.Text>.00</InputGroup.Text>
@@ -70,7 +67,6 @@ function NewTransactionForm(props) {
                 <Form.Group controlId="from">
                     <Form.Label>From</Form.Label>
                     <Form.Control
-                        id="from"
                         value={transaction.from}
                         type="text"
                         required
