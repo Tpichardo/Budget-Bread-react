@@ -1,20 +1,30 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Nav from 'react-bootstrap/Nav';
+import Container from 'react-bootstrap/Container';
+import { Nav, Navbar } from 'react-bootstrap';
+
 
 const NavBar = () => {
     return (
-        <Nav variant="tabs" defaultActiveKey="/">
-            <Nav.Item>
-                <Nav.Link as={NavLink} to='/' eventKey="link-1">Home</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link as={NavLink} to='/transactions' eventKey="link-2">Transactions</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link as={NavLink} to='/transactions/new' eventKey="link-3">New Transaction</Nav.Link>
-            </Nav.Item>
-        </Nav>
+        <Navbar bg="light" expand="lg">
+            <Container>
+                <Navbar.Brand>Budgeting App</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav>
+                        <Nav.Item>
+                            <Nav.Link as={NavLink} to='/'>Home</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link as={NavLink} to='/transactions' >Transactions</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link as={NavLink} to='/transactions/new'>New Transaction</Nav.Link>
+                        </Nav.Item>
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
     )
 }
 

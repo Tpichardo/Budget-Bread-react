@@ -32,7 +32,7 @@ function NewTransactionForm(props) {
                     <Form.Control
                         id="date"
                         value={transaction.date}
-                        type="text"
+                        type="date"
                         required
                         onChange={handleChange}
                         placeholder="Date" />
@@ -78,7 +78,7 @@ function NewTransactionForm(props) {
                         as="textarea"
                         rows={3} />
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button variant="outline-primary" type="submit">
                     Submit
                 </Button>
             </Form>

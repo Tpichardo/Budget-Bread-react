@@ -3,6 +3,10 @@ import { useState, useEffect } from 'react';
 import { Link, useParams, useHistory, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { apiURL } from '../util/apiURL';
+import { BsTrash } from 'react-icons/bs'
+import { GrEdit } from 'react-icons/gr';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
 const API = apiURL()
 
@@ -30,25 +34,28 @@ function TransactionDetails(props) {
         history.push('/transactions')
     };
     return (
-        <article>
-            <h1>{transaction.name}</h1>
-            <p>Date: {transaction.date}</p>
-            <p>Amount: ${transaction.amount}</p>
-            <p>From: {transaction.from}</p>
-            <div>
+
+        <Card style={{ width: '18rem' }}>
+            <Card.Body>
+                <Card.Title>{transaction.name}</Card.Title>
+                {transaction.amount < 0 ? <Card.Text className="text-danger">Withdrawl: {transaction.amount}</Card.Text> : <Card.Text className="text-success">Deposit:{transaction.amount}</Card.Text>}
+                {/* <Card.Text>{transaction.amount < 0 ? 'Withdrawl' : 'Deposit'}: {transaction.amount}</Card.Text> */}
+                <Card.Text>
+                    From: {transaction.from}
+                </Card.Text>
                 <Link to={`/transactions/${index}/edit`}>
-                    <button>Edit</button>
+                    <Button variant='outline-success'>
+                        <GrEdit />
+                    </Button>
                 </Link>
-            </div>
-            <div>
-                <button onClick={handleDelete}>Delete</button>
-            </div>
-            <div>
+                <Button variant='outline-danger'>
+                    <BsTrash onClick={handleDelete} />
+                </Button>
                 <Link to={'/transactions'}>
-                    <button>Back</button>
+                    <Button variant='outline-primary'>Back</Button>
                 </Link>
-            </div>
-        </article>
+            </Card.Body>
+        </Card>
     )
 }
 

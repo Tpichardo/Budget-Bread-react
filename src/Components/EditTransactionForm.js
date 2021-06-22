@@ -51,7 +51,7 @@ function EditTransactionForm(props) {
                     <Form.Control
                         id="date"
                         value={transaction.date}
-                        type="text"
+                        type="date"
                         required
                         onChange={handleChange}
                         placeholder="Date"
@@ -68,8 +68,6 @@ function EditTransactionForm(props) {
                         placeholder="Name"
                     />
                 </Form.Group>
-
-
                 <InputGroup className="mb-3">
                     <InputGroup.Prepend>
                         <InputGroup.Text id="amount">$</InputGroup.Text>
@@ -99,13 +97,13 @@ function EditTransactionForm(props) {
                         as="textarea"
                         rows={3} />
                 </Form.Group>
-                <Button variant='primary' type='submit'>
+                <Button variant='outline-primary' type='submit'>
                     Submit Change
                 </Button>
             </Form>
             <br />
             <Link to={`/transactions/${index}`}>
-                <Button variant='primary'>
+                <Button variant='outline-primary'>
                     Back
                 </Button>
             </Link>

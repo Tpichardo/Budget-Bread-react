@@ -9,7 +9,7 @@ const Transactions = ({ transactions }) => {
 
     return (
         <div>
-            <h1>Bank Account Total: ${total.toFixed(2)}</h1>
+            {total > 1000 ? <h1 style={{ color: "green" }}>Bank Account Total: ${total.toFixed(2)}</h1> : <h1 style={{ color: "red" }}>Bank Account Total: ${total.toFixed(2)}</h1>}
             {transactions.map((transaction, index) => {
                 return <Transaction key={index} transaction={transaction} index={index} />
             })}
