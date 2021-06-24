@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/Container';
 const Transaction = ({ transaction, index }) => {
     return (
         <Container>
-            <Table striped hover size="sm" >
+            <Table striped hover size="sm" className='bg-light' >
                 <thead>
                     <tr>
                         <th className='col-1'>Date</th>
@@ -18,7 +18,6 @@ const Transaction = ({ transaction, index }) => {
                     <tr>
                         <td>{transaction.date}</td>
                         <td className='text-center'><Link to={`/transactions/${index}`}>{transaction.name}</Link></td>
-                        {/* <td className='text-center'>{Number(transaction.amount).toFixed(2)}</td> */}
                         {transaction.amount > 0 ? <td className='text-center text-success'>{Number(transaction.amount).toFixed(2)}</td> : <td className='text-center text-danger'>{Number(transaction.amount).toFixed(2)}</td>}
                     </tr>
                 </tbody>

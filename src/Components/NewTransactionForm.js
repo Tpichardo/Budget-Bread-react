@@ -75,7 +75,7 @@ function NewTransactionForm(props) {
                         as="textarea"
                         rows={3} />
                 </Form.Group>
-                <Button variant="outline-primary" type="submit">
+                <Button variant="primary" type="submit">
                     Submit
                 </Button>
             </Form>

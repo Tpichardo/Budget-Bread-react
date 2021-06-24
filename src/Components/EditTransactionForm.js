@@ -95,13 +95,13 @@ function EditTransactionForm(props) {
                         as="textarea"
                         rows={3} />
                 </Form.Group>
-                <Button variant='outline-primary' type='submit'>
+                <Button variant='primary' type='submit'>
                     Submit Change
                 </Button>
             </Form>
             <br />
             <Link to={`/transactions/${index}`}>
-                <Button variant='outline-primary'>
+                <Button variant='primary'>
                     Back
                 </Button>
             </Link>
