@@ -7,7 +7,7 @@ Then start budgetting your money today with Bread! 🍞
 
 [Bread](https://youthful-golick-612bfa.netlify.app)
 
-
+![Budget App gif](BreadGif.gif)
 
 Bread is a responsive full stack web application that allows you to easily track your transactions by displaying a visual depiction of the transactions you have submitted and their total! 
 
