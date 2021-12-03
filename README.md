@@ -5,7 +5,7 @@ Then start budgetting your money today with Bread! 🍞
 
 ## 👇🏻 Live App
 
-[Bread](https://youthful-golick-612bfa.netlify.app)
+[Bread](https://save-your-bread.netlify.app/)
 
 ![Budget App gif](BreadGif.gif)
 
