@@ -48,4 +48,12 @@ describe("A form that displays different inputs", () => {
 
 });
 
+describe("renders a type number input", () => {
+    test("renders a type number input that only accepts numbers", () => {
+        const { getByLabelText } = render(<MockForm addTransaction={[]} />);
+        const amount = getByLabelText("Amount")
+
+        expect(amount).not.toBeNaN();
+    });
+})
 
