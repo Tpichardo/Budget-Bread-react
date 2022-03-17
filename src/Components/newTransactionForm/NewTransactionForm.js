@@ -7,6 +7,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Container from 'react-bootstrap/Container';
 
 function NewTransactionForm(props) {
+    // console.log(props)
     const [transaction, setTransaction] = useState({
         date: "",
         name: "",
@@ -35,8 +36,10 @@ function NewTransactionForm(props) {
                         type="date"
                         required
                         onChange={handleChange}
-                        placeholder="Date" />
+                        placeholder="Date"
+                    />
                 </Form.Group>
+
                 <Form.Group controlId="name">
                     <Form.Label>Name</Form.Label>
                     <Form.Control
@@ -44,26 +47,30 @@ function NewTransactionForm(props) {
                         type="text"
                         required
                         onChange={handleChange}
-                        placeholder="Name" />
+                        placeholder="Name"
+                    />
                 </Form.Group>
 
-                <InputGroup className="mb-3">
-                    <InputGroup.Prepend>
-                        <InputGroup.Text id="amount">$</InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <Form.Control
-                        aria-label="Amount (to the nearest dollar)"
-                        id="amount"
-                        value={transaction.amount}
-                        type="number"
-                        required
-                        onChange={handleChange}
-                        placeholder="Amount"
-                    />
-                    <InputGroup.Append>
-                        <InputGroup.Text>.00</InputGroup.Text>
-                    </InputGroup.Append>
-                </InputGroup>
+                <Form.Group>
+                    <Form.Label>Amount</Form.Label>
+                    <InputGroup className="mb-3">
+                        <InputGroup.Prepend>
+                            <InputGroup.Text id="amount">$</InputGroup.Text>
+                        </InputGroup.Prepend>
+                        <Form.Control
+                            aria-label="Amount"
+                            id="amount"
+                            value={transaction.amount}
+                            type="number"
+                            required
+                            onChange={handleChange}
+                        />
+                        <InputGroup.Append>
+                            <InputGroup.Text>.00</InputGroup.Text>
+                        </InputGroup.Append>
+                    </InputGroup>
+                </Form.Group>
+
                 <Form.Group controlId="from">
                     <Form.Label>From</Form.Label>
                     <Form.Control
@@ -73,8 +80,10 @@ function NewTransactionForm(props) {
                         onChange={handleChange}
                         placeholder="Description of where transaction came from"
                         as="textarea"
-                        rows={3} />
+                        rows={3}
+                    />
                 </Form.Group>
+
                 <Button variant="primary" type="submit">
                     Submit
                 </Button>
