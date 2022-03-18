@@ -28,42 +28,27 @@ describe("A form that allows the user to input a date, name, amount, and from va
     });
 
     //Name input element
-    test("renders name input element", () => {
+    test("renders name input element and allows user to type in name input", () => {
         const { getByLabelText } = render(<MockForm addTransaction={[]} />);
         const transactionName = getByLabelText("Name");
 
+        fireEvent.change(transactionName, { target: { value: "Dinner with Mami" } });
+
         expect(transactionName).toBeInTheDocument();
-    });
-
-    test("allows user to type in name input", () => {
-        const { getByLabelText } = render(<MockForm addTransaction={[]} />)
-        const transactionNameInput = getByLabelText("Name");
-        fireEvent.change(transactionNameInput, { target: { value: "Dinner with Mami" } });
-
-        expect(transactionNameInput.value).toBe("Dinner with Mami");
+        expect(transactionName.value).toBe("Dinner with Mami");
     });
 
     //Amount input element
-    test("renders amount input element", () => {
-        const { getByLabelText } = render(<MockForm addTransaction={[]} />);
-        const amount = getByLabelText("Amount");
-
-        expect(amount).toBeInTheDocument();
-    });
-
     test("renders a type number input that only accepts numbers", () => {
         const { getByLabelText } = render(<MockForm addTransaction={[]} />);
-        const amount = getByLabelText("Amount")
-
-        expect(amount).not.toBeNaN();
-    });
-
-    test("allows user to enter a number in amount input", () => {
-        const { getByLabelText } = render(<MockForm addTransaction={[]} />);
         const amount = getByLabelText("Amount");
+
         fireEvent.change(amount, { target: { value: "80" } });
 
+        expect(amount).toBeInTheDocument();
+        expect(amount).not.toBeNaN();
         expect(amount.value).toBe("80");
+
     });
 
     //Textarea element
@@ -71,14 +56,9 @@ describe("A form that allows the user to input a date, name, amount, and from va
         const { getByLabelText } = render(<MockForm addTransaction={[]} />);
         const transactionDescription = getByLabelText("From");
 
-        expect(transactionDescription).toBeInTheDocument();
-    });
-
-    test("allows user to enter a transaction description in textarea", () => {
-        const { getByLabelText } = render(<MockForm addTransaction={[]} />);
-        const transactionDescription = getByLabelText("From");
         fireEvent.change(transactionDescription, { target: { value: "Mama Sushi" } });
 
+        expect(transactionDescription).toBeInTheDocument();
         expect(transactionDescription.value).toBe("Mama Sushi");
     });
 
