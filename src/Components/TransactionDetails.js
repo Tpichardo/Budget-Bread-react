@@ -1,7 +1,7 @@
 import React from 'react';
+import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link, useParams, useHistory, withRouter } from 'react-router-dom';
-import axios from 'axios';
 import { apiURL } from '../util/apiURL';
 import { BsTrash } from 'react-icons/bs'
 import { GrEdit } from 'react-icons/gr';
@@ -10,12 +10,22 @@ import Card from 'react-bootstrap/Card';
 
 const API = apiURL()
 
-function TransactionDetails(props) {
-    const { deleteTransaction } = props;
-    const [transaction, setTransaction] = useState([])
+function TransactionDetails() {
 
-    let { index } = useParams()
-    let history = useHistory()
+    const [transaction, setTransaction] = useState([]);
+    let history = useHistory();
+    let { index } = useParams();
+
+    const deleteTransaction = async (index) => {
+        await axios.delete(`${API}/transactions/${index}`)
+            .then((response) => {
+                const transactionArr = [...transaction]
+                transactionArr.splice(index, 1)
+                setTransaction(transactionArr)
+            }).catch((e) => {
+                console.log(e)
+            })
+    };
 
 
     useEffect(() => {
@@ -29,10 +39,11 @@ function TransactionDetails(props) {
             })
     }, [index, history])
 
-    const handleDelete = () => {
-        deleteTransaction(index)
+    const handleDelete = async () => {
+        await deleteTransaction(index)
         history.push('/transactions')
     };
+
     return (
 
         <Card style={{ width: '18rem' }}>
