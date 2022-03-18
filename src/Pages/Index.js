@@ -1,9 +1,9 @@
 import React from 'react';
-import Transactions from '../Components/Transactions';
+import Transactions from '../Components/transactions/Transactions';
 
-function Index({ transactions }) {
+function Index() {
     return (
-        <Transactions transactions={transactions} />
+        <Transactions />
     )
 }
 export default Index;
