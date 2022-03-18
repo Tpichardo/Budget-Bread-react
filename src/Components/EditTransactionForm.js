@@ -1,18 +1,18 @@
 import React from 'react';
+import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link, useParams, useHistory } from 'react-router-dom';
 import { apiURL } from '../util/apiURL';
-import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Container from 'react-bootstrap/Container';
 
-const API = apiURL()
+const API = apiURL();
 
-function EditTransactionForm(props) {
-    let { index } = useParams()
-    let history = useHistory()
+function EditTransactionForm() {
+    let history = useHistory();
+    let { index } = useParams();
 
     const [transaction, setTransaction] = useState({
         date: "",
@@ -37,10 +37,22 @@ function EditTransactionForm(props) {
             })
     }, [index, history])
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        props.updateTransaction(transaction, index)
-        history.push(`/transactions/${index}`)
+
+    const updateTransaction = async (updatedTransaction, index) => {
+        await axios.put(`${API}/transactions/${index}`, updatedTransaction)
+            .then((response) => {
+                const transactionArr = [...transaction]
+                transactionArr[index] = updatedTransaction
+                setTransaction(transactionArr)
+            }).catch((e) => {
+                console.log(e)
+            })
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        await updateTransaction(transaction, index);
+        history.push(`/transactions/${index}`);
     };
 
     return (

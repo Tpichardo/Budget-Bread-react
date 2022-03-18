@@ -1,10 +1,10 @@
 import React from 'react';
 import EditTransactionForm from '../Components/EditTransactionForm';
 
-function Edit({ updateTransaction, transactions }) {
+function Edit() {
     return (
         <div>
-            <EditTransactionForm updateTransaction={updateTransaction} transactions={transactions} />
+            <EditTransactionForm />
         </div>
     );
 }
