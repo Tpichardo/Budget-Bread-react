@@ -1,13 +1,18 @@
 import React from 'react';
+import axios from 'axios';
 import { useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, useHistory } from 'react-router-dom';
+import { apiURL } from '../../util/apiURL';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Container from 'react-bootstrap/Container';
 
-function NewTransactionForm(props) {
-    // console.log(props)
+
+function NewTransactionForm() {
+    let history = useHistory();
+    const API = apiURL();
+
     const [transaction, setTransaction] = useState({
         date: "",
         name: "",
@@ -15,15 +20,24 @@ function NewTransactionForm(props) {
         from: ""
     });
 
+    const addTransaction = (newTransaction) => {
+        axios.post(`${API}/transactions`, newTransaction)
+            .then((response) => {
+                history.push('/transactions')
+            }).catch((e) => {
+                console.log(e)
+            })
+    }
+
     const handleChange = (e) => {
         setTransaction({ ...transaction, [e.target.id]: e.target.value })
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        props.addTransaction(transaction)
-        props.history.push('/transactions')
+        addTransaction(transaction)
     }
+
 
     return (
         <Container>

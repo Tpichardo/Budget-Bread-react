@@ -1,10 +1,10 @@
 import React from 'react';
 import NewTransactionForm from '../Components/newTransactionForm/NewTransactionForm';
 
-function New({ addTransaction }) {
+function New() {
     return (
         <div>
-            <NewTransactionForm addTransaction={addTransaction} />
+            <NewTransactionForm />
         </div>
     )
 }
