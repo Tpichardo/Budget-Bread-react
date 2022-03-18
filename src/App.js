@@ -1,9 +1,6 @@
 //DEPENDECIES
 import React from 'react';
-import { useState, useEffect } from 'react'
-import { Switch, Route } from 'react-router-dom';
-import axios from 'axios';
-import { apiURL } from './util/apiURL';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.scss'
 
 //BOOSTRAP
@@ -21,81 +18,32 @@ import Four0Four from './Pages/Four0Four';
 //COMPONENTS
 import NavBar from './Components/NavBar';
 
-const API = apiURL()
-
 function App() {
-  const [transactions, setTransactions] = useState([])
-
-  const addTransaction = (newTransaction) => {
-    axios.post(`${API}/transactions`, newTransaction)
-      .then((response) => {
-        return axios.get(`${API}/transactions`)
-          .then((response => {
-            const { data } = response
-            setTransactions(data)
-          }))
-      }).catch((e) => {
-        console.log(e)
-      })
-  }
-
-  const deleteTransaction = (index) => {
-    axios.delete(`${API}/transactions/${index}`)
-      .then((response) => {
-        const transactionArr = [...transactions]
-        transactionArr.splice(index, 1)
-        setTransactions(transactionArr)
-      }).catch((e) => {
-        console.log(e)
-      })
-  }
-
-  const updateTransaction = (updatedTransaction, index) => {
-    axios.put(`${API}/transactions/${index}`, updatedTransaction)
-      .then((response) => {
-        const transactionArr = [...transactions]
-        transactionArr[index] = updatedTransaction
-        setTransactions(transactionArr)
-      }).catch((e) => {
-        console.log(e)
-      })
-  }
-
-
-
-  useEffect(() => {
-    axios.get(`${API}/transactions`).then((response) => {
-      const { data } = response
-      setTransactions(data)
-    }).catch((e) => {
-      console.log(e)
-    })
-  }, [])
   return (
     <div className="App">
-      <NavBar />
-      <main>
+      <Router>
+        <NavBar />
         <Switch>
           <Route exact path='/'>
             <Home />
           </Route>
           <Route exact path='/transactions'>
-            <Index transactions={transactions} />
+            <Index />
           </Route>
           <Route path='/transactions/new'>
-            <New addTransaction={addTransaction} />
+            <New />
           </Route>
           <Route exact path='/transactions/:index'>
-            <Show transactions={transactions} deleteTransaction={deleteTransaction} />
+            <Show />
           </Route>
           <Route path='/transactions/:index/edit'>
-            <Edit transactions={transactions} updateTransaction={updateTransaction} />
+            <Edit />
           </Route>
           <Route path='*'>
             <Four0Four />
           </Route>
         </Switch>
-      </main>
+      </Router>
     </div>
   );
 }
