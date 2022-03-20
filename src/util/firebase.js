@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
 const {
     REACT_APP_FIREBASE_API_KEY,
@@ -31,6 +31,10 @@ export const signUp = (email, password) => {
 
 export const signIn = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password)
+};
+
+export const lognOut = () => {
+    return signOut(auth);
 };
 
 
