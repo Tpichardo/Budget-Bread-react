@@ -21,6 +21,9 @@ const NavBar = () => {
                         <Nav.Item>
                             <Nav.Link as={NavLink} to='/transactions/new'>New Transaction</Nav.Link>
                         </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link as={NavLink} to='/signin'>Sign In</Nav.Link>
+                        </Nav.Item>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
