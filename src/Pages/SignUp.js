@@ -1,6 +1,7 @@
 import React from 'react';
-import { signUp } from '../firebase';
+import { signUp } from '../util/firebase';
 import { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Container, Card, Form, Button, Alert } from 'react-bootstrap';
 
 
@@ -37,18 +38,19 @@ const SignUp = () => {
                     return word !== 'Firebase:' &&
                         word !== '(auth/weak-password).' &&
                         word !== '(auth/email-already-exists).'
-                })
-                    .join(' ');
+                }).join(' ');
+
                 setError(`Unable to create an account. ${fbErrorMessage}`);
             }
         }
         setLoading(false);
-    }
+    };
 
     return (
         <Container>
             <Card>
                 <Card.Body>
+                    <h3>Sign Up</h3>
                     {error && <Alert variant='danger'>{error}</Alert>}
                     <Form onSubmit={handleSubmit}>
                         <Form.Group>
@@ -82,7 +84,9 @@ const SignUp = () => {
                     </Form>
                 </Card.Body>
             </Card>
-            <h3 className='text-center'>Already have an account? Sign in</h3>
+            <Card>
+                <h3 className='text-center'>Already have an account? <Link to='/signin' className='authenticate'>Sign in</Link></h3>
+            </Card>
         </Container>
     )
 }
