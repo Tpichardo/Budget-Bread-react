@@ -14,6 +14,8 @@ import New from './Pages/New';
 import Show from './Pages/Show';
 import Edit from './Pages/Edit';
 import Four0Four from './Pages/Four0Four';
+import SignIn from './Pages/SignIn';
+import SignUp from './Pages/SignUp';
 
 //COMPONENTS
 import NavBar from './Components/NavBar';
@@ -26,6 +28,12 @@ function App() {
         <Switch>
           <Route exact path='/'>
             <Home />
+          </Route>
+          <Route path='/signin'>
+            <SignIn />
+          </Route>
+          <Route exact path='/signup'>
+            <SignUp />
           </Route>
           <Route exact path='/transactions'>
             <Index />
