@@ -1,7 +1,8 @@
 import React from 'react';
 import { signUp } from '../firebase';
-import { useRef } from 'react';
-import { Container, Card, Form, Button } from 'react-bootstrap';
+import { useRef, useState } from 'react';
+import { Container, Card, Form, Button, Alert } from 'react-bootstrap';
+
 
 
 
@@ -9,18 +10,46 @@ const SignUp = () => {
     let emailRef = useRef();
     let passwordRef = useRef();
     let confirmPasswordRef = useRef();
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
 
     //this will return a promise because it will make an API call to firebase API
     const handleSubmit = async (e) => {
-        await signUp(emailRef.current.value, passwordRef.current.value);
         e.preventDefault();
+
+        if (passwordRef.current.value !== confirmPasswordRef.current.value) {
+            return setError('Passwords do not match.');
+        };
+
+        try {
+            setError('');
+            setLoading(true);
+            await signUp(emailRef.current.value, passwordRef.current.value);
+        } catch (error) {
+            const { message } = error;
+            if (message.includes('invalid-email')) {
+                setError('Unable to create an account. The provided email is invalid.');
+            } else if (message.includes('email-already-in-use')) {
+                setError('Unable to create an account. The provided email is already in use.');
+            } else {
+                const fbErrorMessage = error.message.split(' ').filter(word => {
+                    return word !== 'Firebase:' &&
+                        word !== '(auth/weak-password).' &&
+                        word !== '(auth/email-already-exists).'
+                })
+                    .join(' ');
+                setError(`Unable to create an account. ${fbErrorMessage}`);
+            }
+        }
+        setLoading(false);
     }
 
     return (
         <Container>
             <Card>
                 <Card.Body>
+                    {error && <Alert variant='danger'>{error}</Alert>}
                     <Form onSubmit={handleSubmit}>
                         <Form.Group>
                             <Form.Label>Email:</Form.Label>
@@ -36,7 +65,7 @@ const SignUp = () => {
                             <Form.Control
                                 type='password'
                                 ref={passwordRef}
-                                placeholder='password'
+                                placeholder='password must be at least 6 characters'
                                 required
                             />
                         </Form.Group>
@@ -49,7 +78,7 @@ const SignUp = () => {
                                 required
                             />
                         </Form.Group>
-                        <Button type='submit' variant='primary'>Sign Up</Button>
+                        <Button disabled={loading} type='submit' variant='primary'>Sign Up</Button>
                     </Form>
                 </Card.Body>
             </Card>
