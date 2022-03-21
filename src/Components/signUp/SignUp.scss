@@ -1,0 +1,20 @@
+@import "../../styleUtils/layouts";
+
+.signUp {
+  @include shrink-card;
+
+  &__Btn {
+    @include button-width;
+  }
+
+  &__BtnDiv,
+  &__greeting,
+  &__signIn {
+    @include center-text;
+  }
+
+  &__greeting,
+  &__signIn {
+    @include margin-top;
+  }
+}
