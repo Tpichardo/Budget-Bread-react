@@ -14,7 +14,7 @@ import New from './Pages/New';
 import Show from './Pages/Show';
 import Edit from './Pages/Edit';
 import Four0Four from './Pages/Four0Four';
-import SignIn from './Pages/SignIn';
+import SignIn from './Components/signIn/SignIn';
 import SignUp from './Pages/SignUp';
 
 //COMPONENTS
