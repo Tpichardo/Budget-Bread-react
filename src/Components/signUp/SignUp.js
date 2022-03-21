@@ -11,6 +11,7 @@ const SignUp = () => {
     let emailRef = useRef();
     let passwordRef = useRef();
     let confirmPasswordRef = useRef();
+    let nameRef = useRef();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
@@ -53,6 +54,15 @@ const SignUp = () => {
                 <h3 className='signUp__greeting'>Sign Up</h3>
                 {error && <Alert variant='danger'>{error}</Alert>}
                 <Form onSubmit={handleSubmit}>
+                    <Form.Group>
+                        <Form.Label>Name:</Form.Label>
+                        <Form.Control
+                            type='text'
+                            ref={nameRef}
+                            placeholder="name"
+                            required
+                        />
+                    </Form.Group>
                     <Form.Group>
                         <Form.Label>Email:</Form.Label>
                         <Form.Control
