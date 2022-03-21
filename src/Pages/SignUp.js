@@ -28,10 +28,11 @@ const SignUp = () => {
             setLoading(true);
             await signUp(emailRef.current.value, passwordRef.current.value);
         } catch (error) {
-            const { message } = error;
-            if (message.includes('invalid-email')) {
+            const { code } = error;
+
+            if (code === 'auth/invalid-email') {
                 setError('Unable to create an account. The provided email is invalid.');
-            } else if (message.includes('email-already-in-use')) {
+            } else if (code === 'auth/email-already-in-use') {
                 setError('Unable to create an account. The provided email is already in use.');
             } else {
                 const fbErrorMessage = error.message.split(' ').filter(word => {
@@ -40,7 +41,7 @@ const SignUp = () => {
                         word !== '(auth/email-already-exists).'
                 }).join(' ');
 
-                setError(`Unable to create an account. ${fbErrorMessage}`);
+                setError(`Unable to create an account. ${fbErrorMessage}.`);
             }
         }
         setLoading(false);
