@@ -18,7 +18,7 @@ import SignIn from './Pages/SignIn';
 import SignUp from './Pages/SignUp';
 
 //COMPONENTS
-import NavBar from './Components/NavBar';
+import NavBar from './Components/navbar/NavBar';
 
 function App() {
   return (

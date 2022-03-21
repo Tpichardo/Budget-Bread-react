@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react'
 import { apiURL } from '../../util/apiURL';
-import Transaction from '../Transaction'
+import Transaction from '../transaction/Transaction'
 import LoadingView from '../loadingView/LoadingView';
 import Container from 'react-bootstrap/Container';
 
