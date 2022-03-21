@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { withRouter, useHistory } from 'react-router-dom';
 import { apiURL } from '../../util/apiURL';
 import { Container, Form, Button, InputGroup, Card } from 'react-bootstrap';
+import './newTransaction.scss'
 
 
 function NewTransactionForm() {
@@ -37,14 +38,13 @@ function NewTransactionForm() {
 
 
     return (
-        <Container>
+        <Container className='newTransaction'>
             <Card>
                 <Card.Body>
-
-                    <h1>Add New Transaction</h1>
+                    <h1 className='newTransaction__header'>Add a New Transaction</h1>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="date">
-                            <Form.Label>Date</Form.Label>
+                            <Form.Label>Date:</Form.Label>
                             <Form.Control
                                 value={transaction.date}
                                 type="date"
@@ -55,7 +55,7 @@ function NewTransactionForm() {
                         </Form.Group>
 
                         <Form.Group controlId="name">
-                            <Form.Label>Name</Form.Label>
+                            <Form.Label>Name:</Form.Label>
                             <Form.Control
                                 value={transaction.name}
                                 type="text"
@@ -66,7 +66,7 @@ function NewTransactionForm() {
                         </Form.Group>
 
                         <Form.Group>
-                            <Form.Label>Amount</Form.Label>
+                            <Form.Label>Amount:</Form.Label>
                             <InputGroup className="mb-3">
                                 <InputGroup.Prepend>
                                     <InputGroup.Text id="amount">$</InputGroup.Text>
@@ -86,7 +86,7 @@ function NewTransactionForm() {
                         </Form.Group>
 
                         <Form.Group controlId="from">
-                            <Form.Label>From</Form.Label>
+                            <Form.Label>From:</Form.Label>
                             <Form.Control
                                 value={transaction.from}
                                 type="text"
@@ -97,10 +97,11 @@ function NewTransactionForm() {
                                 rows={3}
                             />
                         </Form.Group>
-
-                        <Button variant="primary" type="submit">
-                            Submit
-                        </Button>
+                        <div className="newTransaction__BtnDiv">
+                            <Button className='newTransaction__Btn' variant="primary" type="submit">
+                                Submit
+                            </Button>
+                        </div>
                     </Form>
                 </Card.Body>
             </Card>

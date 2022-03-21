@@ -19,16 +19,18 @@ describe("A form that allows the user to input a date, name, amount, and from va
     });
 
     //Date input element
-
-    test("renders date input element", () => {
+    test("renders date input element and allows the user to enter a date", () => {
         const { getByLabelText } = render(<MockForm addTransaction={[]} />);
         const date = getByLabelText("Date");
 
+        fireEvent.change(date, {target: {value: "2022-03-18"}});
+
         expect(date).toBeInTheDocument();
+        expect(date.value).toBe("2022-03-18");
     });
 
     //Name input element
-    test("renders name input element and allows user to type in name input", () => {
+    test("renders name input element and allows user to type", () => {
         const { getByLabelText } = render(<MockForm addTransaction={[]} />);
         const transactionName = getByLabelText("Name");
 
@@ -52,7 +54,7 @@ describe("A form that allows the user to input a date, name, amount, and from va
     });
 
     //Textarea element
-    test("renders text area element", () => {
+    test("renders text area element that allows the user to type", () => {
         const { getByLabelText } = render(<MockForm addTransaction={[]} />);
         const transactionDescription = getByLabelText("From");
 
@@ -64,4 +66,21 @@ describe("A form that allows the user to input a date, name, amount, and from va
 
 });
 
+//Integration test
+// describe("allows user to add a new transaction on submit", () => {
+//     test('user is able to submit a transaction', async () => {
+//         const { getByRole, findByText } = render(<MockForm addTransaction={[]} />);
+//         const submitButton = getByRole("button", { name: 'Submit' });
 
+
+//         expect(submitButton).toBeInTheDocument();
+//         fireEvent.click(submitButton);
+//         await findByText(/bank/i);
+
+        
+
+
+//     })
+
+
+// });
