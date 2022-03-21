@@ -1,0 +1,15 @@
+@import "../../styleUtils/layouts";
+
+.newTransaction {
+  margin-top: 4rem;
+
+  &__header,
+  &__BtnDiv {
+    @include center-text;
+  }
+
+  &__Btn {
+    @include button-width;
+    @include margin-top;
+  }
+}
