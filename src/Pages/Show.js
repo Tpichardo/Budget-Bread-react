@@ -1,5 +1,5 @@
 import React from 'react';
-import TransactionDetails from '../Components/transactionDetails/TransactionDetails';
+import TransactionDetails from '../Components/transactionDetails/TransactionDetails.js';
 
 function Show() {
     return (

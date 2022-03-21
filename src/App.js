@@ -8,17 +8,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 //Pages
-import Home from './Pages/Home';
-import Index from './Pages/Index';
-import New from './Pages/New';
-import Show from './Pages/Show';
-import Edit from './Pages/Edit';
-import Four0Four from './Pages/Four0Four';
-import SignIn from './Components/signIn/SignIn';
-import SignUp from './Pages/SignUp';
+import Home from './Pages/Home.js';
+import Index from './Pages/Index.js';
+import New from './Pages/New.js';
+import Show from './Pages/Show.js';
+import Edit from './Pages/Edit.js';
+import Four0Four from './Pages/Four0Four.js';
+import SignIn from './Components/signIn/SignIn.js';
+import SignUp from './Components/signUp/SignUp.js';
 
 //COMPONENTS
-import NavBar from './Components/navbar/NavBar';
+import NavBar from './Components/navbar/NavBar.js';
 
 function App() {
   return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import NewTransactionForm from '../Components/newTransactionForm/NewTransactionForm';
+import NewTransactionForm from '../Components/newTransactionForm/NewTransactionForm.js';
 
 function New() {
     return (
