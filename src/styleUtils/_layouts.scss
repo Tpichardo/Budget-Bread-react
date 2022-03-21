@@ -1,0 +1,16 @@
+@mixin shrink-card {
+  width: 40%;
+  margin: 5% 10% 0 30% !important;
+}
+
+@mixin center-text {
+  text-align: center;
+}
+
+@mixin button-width {
+  width: 50%;
+}
+
+@mixin margin-top {
+  margin-top: 1.3rem;
+}
