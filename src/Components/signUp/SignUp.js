@@ -1,8 +1,10 @@
 import React from 'react';
-import { signUp } from '../../util/firebase';
 import { useRef, useState } from 'react';
+import { useUserContext } from '../../context/UserContext.js';
 import { Link } from 'react-router-dom';
 import { Card, Form, Button, Alert } from 'react-bootstrap';
+import { auth } from '../../util/firebaseConfig.js'
+import { updateProfile } from 'firebase/auth';
 import './SignUp.scss';
 
 
@@ -14,12 +16,12 @@ const SignUp = () => {
     let nameRef = useRef();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const { signUp } = useUserContext();
 
 
-    //this will return a promise because it will make an API call to firebase API
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         if (passwordRef.current.value !== confirmPasswordRef.current.value) {
             return setError('Passwords do not match.');
         };
@@ -27,7 +29,12 @@ const SignUp = () => {
         try {
             setError('');
             setLoading(true);
-            await signUp(emailRef.current.value, passwordRef.current.value);
+            await signUp(emailRef.current.value, passwordRef.current.value)
+                .then(() => {
+                    updateProfile(auth.currentUser, {
+                        displayName: nameRef.current.value
+                    })
+                })
         } catch (error) {
             const { code } = error;
 
@@ -36,13 +43,13 @@ const SignUp = () => {
             } else if (code === 'auth/email-already-in-use') {
                 setError('Unable to create an account. The provided email is already in use.');
             } else {
-                const fbErrorMessage = error.message.split(' ').filter(word => {
+                const fireErrorMessage = error.message.split(' ').filter(word => {
                     return word !== 'Firebase:' &&
                         word !== '(auth/weak-password).' &&
                         word !== '(auth/email-already-exists).'
                 }).join(' ');
 
-                setError(`Unable to create an account. ${fbErrorMessage}.`);
+                setError(`Unable to create an account. ${fireErrorMessage}.`);
             }
         }
         setLoading(false);
@@ -54,7 +61,7 @@ const SignUp = () => {
                 <h3 className='signUp__greeting'>Sign Up</h3>
                 {error && <Alert variant='danger'>{error}</Alert>}
                 <Form onSubmit={handleSubmit}>
-                    <Form.Group>
+                    <Form.Group controlId='displayName'>
                         <Form.Label>Name:</Form.Label>
                         <Form.Control
                             type='text'
@@ -63,7 +70,7 @@ const SignUp = () => {
                             required
                         />
                     </Form.Group>
-                    <Form.Group>
+                    <Form.Group controlId='email'>
                         <Form.Label>Email:</Form.Label>
                         <Form.Control
                             type='email'
@@ -72,7 +79,7 @@ const SignUp = () => {
                             required
                         />
                     </Form.Group>
-                    <Form.Group>
+                    <Form.Group controlId='password'>
                         <Form.Label>Password:</Form.Label>
                         <Form.Control
                             type='password'
@@ -81,7 +88,7 @@ const SignUp = () => {
                             required
                         />
                     </Form.Group>
-                    <Form.Group>
+                    <Form.Group controlId='confirmPassword'>
                         <Form.Label>Confirm Password:</Form.Label>
                         <Form.Control
                             type='password'
