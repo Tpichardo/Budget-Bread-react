@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 
 const {
     REACT_APP_FIREBASE_API_KEY,
@@ -23,13 +23,5 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
-
-export const signUp = (email, password) => createUserWithEmailAndPassword(auth, email, password);
-
-export const signIn = (email, password) => signInWithEmailAndPassword(auth, email, password);
-
-export const lognOut = () => signOut(auth);
-
-
+export const auth = getAuth(app);
 
