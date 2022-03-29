@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRef, useState } from 'react';
-import { useUserContext } from '../../context/UserContext.js';
-import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext.js';
+import { Link, useHistory } from 'react-router-dom';
 import { Card, Form, Button, Alert, Container } from 'react-bootstrap';
 import { auth } from '../../util/firebaseConfig.js'
 import { updateProfile } from 'firebase/auth';
@@ -16,12 +16,14 @@ const SignUp = () => {
     let nameRef = useRef();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const { signUp } = useUserContext();
+    const { signUp } = useAuth();
+    let history = useHistory();
 
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         if (passwordRef.current.value !== confirmPasswordRef.current.value) {
             return setError('Passwords do not match.');
         };
@@ -35,6 +37,7 @@ const SignUp = () => {
                         displayName: nameRef.current.value
                     })
                 })
+            history.push('/signin')
         } catch (error) {
             const { code } = error;
 
