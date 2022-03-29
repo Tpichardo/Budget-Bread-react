@@ -1,6 +1,7 @@
 @mixin shrink-card {
   max-width: 30rem;
   margin: 5% auto;
+  max-height: 80vh;
 }
 
 @mixin center-text {
