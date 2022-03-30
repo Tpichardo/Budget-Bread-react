@@ -33,8 +33,8 @@ export const AuthProvider = ({ children }) => {
         return signInWithEmailAndPassword(auth, email, password);
     }
 
-    const signOut = () => {
-
+    const logOut = () => {
+        return auth.signOut();
     }
 
     const forgotPassword = (email) => {
@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
         currentUser,
         signUp,
         signIn,
-        signOut,
+        logOut,
         forgotPassword
     };
     return (
