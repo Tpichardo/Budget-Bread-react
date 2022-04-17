@@ -8,7 +8,7 @@ import './SignIn.scss'
 const SignIn = () => {
     let emailRef = useRef();
     let passwordRef = useRef();
-    const [error, setEror] = useState('');
+    const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const { signIn } = useAuth();
     const history = useHistory();
@@ -17,13 +17,26 @@ const SignIn = () => {
         e.preventDefault();
 
         try {
-            setEror('');
+            setError('');
             setLoading(true);
             await signIn(emailRef.current.value, passwordRef.current.value);
             history.push('/user');
         } catch (error) {
             console.log(error)
-            setEror('Failed to sign in.')
+            setError('Failed to sign in.')
+        }
+        setLoading(false);
+    }
+
+    const demoLogin = async () => {
+        try {
+            setError('');
+            setLoading(true);
+            await signIn("budgetdemo@testing.com", "Thisisthedemopassword!*");
+            history.push('/user');
+        } catch (error) {
+            console.log(error)
+            setError('Demo login is currently unavailable')
         }
         setLoading(false);
     }
@@ -51,10 +64,11 @@ const SignIn = () => {
                                 type='password'
                                 placeholder='password'
                                 ref={passwordRef}
-                                rewuired
+                                required
                             />
                         </Form.Group>
                         <div className='signIn__BtnDiv'>
+                            <Button onClick={demoLogin} disabled={loading} className='signIn__Btn' type='submit' variant='primary'>Demo Login</Button>
                             <Button disabled={loading} className='signIn__Btn' type='submit' variant='primary'>Log In</Button>
                         </div>
                     </Form>
