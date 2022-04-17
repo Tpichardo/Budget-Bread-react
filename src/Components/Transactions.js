@@ -1,16 +1,18 @@
 import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react'
-import { apiURL } from '../../util/apiURL';
-import Transaction from '../transaction/Transaction'
-import LoadingView from '../loadingView/LoadingView';
+import { apiURL } from '../util/apiURL';
+import Transaction from './Transaction'
+import LoadingView from './LoadingView';
 import Container from 'react-bootstrap/Container';
+import { useAuth } from '../context/AuthContext';
 
 const API = apiURL();
 
 const Transactions = () => {
     const [transactions, setTransactions] = useState([]);
     const [loading, setLoading] = useState(true);
+    const { currentUser } = useAuth();
 
     useEffect(() => {
         axios.get(`${API}/transactions`).then((response) => {
@@ -29,6 +31,9 @@ const Transactions = () => {
         total += Number(transaction.amount)
     })
 
+    // if (!currentUser) {
+    //     return <h1>Unauth</h1>
+    // }
     return (
         <div>
             {loading && <LoadingView />}

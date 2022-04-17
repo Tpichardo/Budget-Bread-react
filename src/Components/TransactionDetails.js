@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link, useParams, useHistory, withRouter } from 'react-router-dom';
-import { apiURL } from '../../util/apiURL';
+import { apiURL } from '../util/apiURL';
 import { BsTrash } from 'react-icons/bs'
 import { GrEdit } from 'react-icons/gr';
 import Button from 'react-bootstrap/Button';

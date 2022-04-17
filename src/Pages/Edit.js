@@ -1,5 +1,5 @@
 import React from 'react';
-import EditTransactionForm from '../Components/editTransaction/EditTransaction.js';
+import EditTransactionForm from '../Components/EditTransaction.js';
 
 function Edit() {
     return (

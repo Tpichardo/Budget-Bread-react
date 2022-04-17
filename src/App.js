@@ -14,11 +14,12 @@ import New from './Pages/New.js';
 import Show from './Pages/Show.js';
 import Edit from './Pages/Edit.js';
 import Four0Four from './Pages/Four0Four.js';
-import SignIn from './Components/signIn/SignIn.js';
-import SignUp from './Components/signUp/SignUp.js';
+import SignIn from './Components/SignIn.js';
+import SignUp from './Components/SignUp.js';
 
 //COMPONENTS
-import NavBar from './Components/navbar/NavBar.js';
+import NavBar from './Components/NavBar.js';
+import User from './Components/User.js';
 
 function App() {
   return (
@@ -32,8 +33,11 @@ function App() {
           <Route path='/signin'>
             <SignIn />
           </Route>
-          <Route exact path='/signup'>
+          <Route path='/signup'>
             <SignUp />
+          </Route>
+          <Route path='/user'>
+            <User />
           </Route>
           <Route exact path='/transactions'>
             <Index />

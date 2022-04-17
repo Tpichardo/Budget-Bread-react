@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link, useParams, useHistory } from 'react-router-dom';
-import { apiURL } from '../../util/apiURL';
+import { apiURL } from '../util/apiURL';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';

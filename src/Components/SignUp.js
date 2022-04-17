@@ -1,9 +1,9 @@
 import React from 'react';
 import { useRef, useState } from 'react';
-import { useAuth } from '../../context/AuthContext.js';
+import { useAuth } from '../context/AuthContext.js';
 import { Link, useHistory } from 'react-router-dom';
 import { Card, Form, Button, Alert, Container } from 'react-bootstrap';
-import { auth } from '../../util/firebaseConfig.js'
+import { auth } from '../util/firebaseConfig.js'
 import { updateProfile } from 'firebase/auth';
 import './SignUp.scss';
 
