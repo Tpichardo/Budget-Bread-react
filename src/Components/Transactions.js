@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { apiURL } from '../util/apiURL';
 import Transaction from './Transaction'
 import LoadingView from './LoadingView';
+import { Redirect } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import { useAuth } from '../context/AuthContext';
 
@@ -31,14 +32,12 @@ const Transactions = () => {
         total += Number(transaction.amount)
     })
 
-    // if (!currentUser) {
-    //     return <h1>Unauth</h1>
-    // }
     return (
         <div>
-            {loading && <LoadingView />}
+            {!currentUser && <Redirect to='signin' />}
 
-            {!loading &&
+            {loading && <LoadingView />}
+            {!loading && currentUser?.email === 'budgetdemo@testing.com' &&
                 <Container>
                     {total > 1000 ?
                         <h1 style={{ color: "green", backgroundColor: "#ffffff" }}>Bank Account Total: ${total.toLocaleString("en-US", { minimumFractionDigits: 2 })}</h1>
@@ -47,7 +46,7 @@ const Transactions = () => {
 
             };
 
-            {!loading &&
+            {!loading && currentUser?.email === 'budgetdemo@testing.com' &&
                 transactions.map((transaction, index) => {
                     return (
                         <div>
@@ -57,7 +56,7 @@ const Transactions = () => {
                 })}
 
         </div>
-    )
-}
+    );
+};
 
 export default Transactions;
