@@ -20,7 +20,7 @@ const SignIn = () => {
             setError('');
             setLoading(true);
             await signIn(emailRef.current.value, passwordRef.current.value);
-            history.push('/user');
+            history.push('/transactions');
         } catch (error) {
             console.log(error)
             setError('Failed to sign in.')
@@ -33,13 +33,13 @@ const SignIn = () => {
             setError('');
             setLoading(true);
             await signIn("budgetdemo@testing.com", "Thisisthedemopassword!*");
-            history.push('/user');
+            history.push('/transactions');
         } catch (error) {
-            console.log(error)
-            setError('Demo login is currently unavailable')
+            console.log(error);
+            setError('Demo login is currently unavailable');
         }
         setLoading(false);
-    }
+    };
 
 
     return (
