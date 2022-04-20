@@ -47,8 +47,10 @@ const Transactions = () => {
                 &&
                 total >= 1000
                 &&
-                <Card>
-                    <h1 className='text-success text-center'>Bank Account Total: ${total.toLocaleString("en-US", { minimumFractionDigits: 2 })}</h1>
+                <Card className='m-5'>
+                    <Card.Body>
+                        <h1 className='text-success text-center'>Bank Account Total: ${total.toLocaleString("en-US", { minimumFractionDigits: 2 })}</h1>
+                    </Card.Body>
                 </Card>
             }
 
@@ -58,8 +60,10 @@ const Transactions = () => {
                 &&
                 total < 1000
                 &&
-                <Card>
-                    <h1 className='text-danger text-center'>Bank Account Total: ${total.toLocaleString('en-US', { minimumDecimalFractions: 2 })}</h1>
+                <Card className='m-5'>
+                    <Card.Body>
+                        <h1 className='text-danger text-center'>Bank Account Total: ${total.toLocaleString('en-US', { minimumDecimalFractions: 2 })}</h1>
+                    </Card.Body>
                 </Card>
             }
 
