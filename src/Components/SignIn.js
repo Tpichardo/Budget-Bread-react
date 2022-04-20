@@ -45,7 +45,7 @@ const SignIn = () => {
     return (
         <Container>
             <Card className='signIn'>
-                <h3 className='signIn__greeting'>Welcome Back!</h3>
+                <h3 className='signIn__greeting'>Welcome!</h3>
                 {error && <Alert variant='danger'>{error}</Alert>}
                 <Card.Body>
                     <Form onSubmit={handleSubmit}>
@@ -68,8 +68,8 @@ const SignIn = () => {
                             />
                         </Form.Group>
                         <div className='signIn__BtnDiv'>
-                            <Button onClick={demoLogin} disabled={loading} className='signIn__Btn' type='submit' variant='primary'>Demo Login</Button>
                             <Button disabled={loading} className='signIn__Btn' type='submit' variant='primary'>Log In</Button>
+                            <Button onClick={demoLogin} disabled={loading} className='signIn__Btn' type='submit' variant='primary'>Demo Login</Button>
                         </div>
                     </Form>
                 </Card.Body>
