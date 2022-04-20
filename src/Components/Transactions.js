@@ -38,7 +38,7 @@ const Transactions = () => {
 
     return (
         <div>
-            {!currentUser && <Redirect to='signin' />}
+            {!currentUser && <Redirect to='/signin' />}
 
             {loading && <LoadingView />}
             {!loading

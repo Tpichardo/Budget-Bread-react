@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useState } from 'react';
 import { withRouter, useHistory } from 'react-router-dom';
 import { apiURL } from '../util/apiURL';
+import { useAuth } from '../context/AuthContext';
+import { Redirect } from 'react-router-dom';
 import { Container, Form, Button, InputGroup, Card } from 'react-bootstrap';
 import './newTransaction.scss'
 
@@ -10,6 +12,7 @@ import './newTransaction.scss'
 function NewTransactionForm() {
     let history = useHistory();
     const API = apiURL();
+    const { currentUser } = useAuth();
 
     const [transaction, setTransaction] = useState({
         transactionDate: "",
@@ -40,6 +43,7 @@ function NewTransactionForm() {
 
     return (
         <Container className='newTransaction'>
+            {!currentUser && <Redirect to='/signin' />}
             <Card>
                 <Card.Body>
                     <h1 className='newTransaction__header'>Add a New Transaction</h1>
