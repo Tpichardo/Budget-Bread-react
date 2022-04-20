@@ -12,8 +12,9 @@ function NewTransactionForm() {
     const API = apiURL();
 
     const [transaction, setTransaction] = useState({
-        date: "",
-        name: "",
+        transactionDate: "",
+        transactionName: "",
+        type: "",
         amount: 0,
         from: ""
     });
@@ -25,16 +26,16 @@ function NewTransactionForm() {
             }).catch((e) => {
                 console.log(e)
             })
-    }
+    };
 
     const handleChange = (e) => {
-        setTransaction({ ...transaction, [e.target.id]: e.target.value })
-    }
+        setTransaction({ ...transaction, [e.target.id]: e.target.value });
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault()
         addTransaction(transaction)
-    }
+    };
 
 
     return (
@@ -43,10 +44,10 @@ function NewTransactionForm() {
                 <Card.Body>
                     <h1 className='newTransaction__header'>Add a New Transaction</h1>
                     <Form onSubmit={handleSubmit}>
-                        <Form.Group controlId="date">
-                            <Form.Label>Date:</Form.Label>
+                        <Form.Group controlId="transactionDate">
+                            <Form.Label>Transaction Date:</Form.Label>
                             <Form.Control
-                                value={transaction.date}
+                                value={transaction.transactionDate}
                                 type="date"
                                 required
                                 onChange={handleChange}
@@ -54,15 +55,28 @@ function NewTransactionForm() {
                             />
                         </Form.Group>
 
-                        <Form.Group controlId="name">
-                            <Form.Label>Name:</Form.Label>
+                        <Form.Group controlId="transactionName">
+                            <Form.Label>Transaction Name:</Form.Label>
                             <Form.Control
-                                value={transaction.name}
+                                value={transaction.transactionName}
                                 type="text"
                                 required
                                 onChange={handleChange}
-                                placeholder="Name"
+                                placeholder="Transaction name"
                             />
+                        </Form.Group>
+
+                        <Form.Group controlId='type'>
+                            <Form.Label>Transaction Type:</Form.Label>
+                            <Form.Control
+                                as='select'
+                                onChange={handleChange}
+                                aria-label="transaction type"
+                                required>
+                                <option value="" selected='true' disabled='disabled'>Transaction Type</option>
+                                <option value="Deposit">Deposit</option>
+                                <option value="Expense">Expense</option>
+                            </Form.Control>
                         </Form.Group>
 
                         <Form.Group>
