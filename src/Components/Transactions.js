@@ -5,8 +5,8 @@ import { apiURL } from '../util/apiURL';
 import Transaction from './Transaction'
 import LoadingView from './LoadingView';
 import { Redirect } from 'react-router-dom';
-import Container from 'react-bootstrap/Container';
 import { useAuth } from '../context/AuthContext';
+import { Card } from 'react-bootstrap';
 
 const API = apiURL();
 
@@ -26,25 +26,42 @@ const Transactions = () => {
     }, []);
 
 
+    const total = transactions.reduce((sum, transaction) => {
+        if (transaction.type === "Expense") {
+            sum -= Number(transaction.amount);
+        } else {
+            sum += Number(transaction.amount);
+        };
 
-    let total = 0
-    transactions.forEach(transaction => {
-        total += Number(transaction.amount)
-    })
+        return sum;
+    }, 0)
 
     return (
         <div>
             {!currentUser && <Redirect to='signin' />}
 
             {loading && <LoadingView />}
-            {!loading && currentUser?.email === 'budgetdemo@testing.com' &&
-                <Container>
-                    {total > 1000 ?
-                        <h1 style={{ color: "green", backgroundColor: "#ffffff" }}>Bank Account Total: ${total.toLocaleString("en-US", { minimumFractionDigits: 2 })}</h1>
-                        : <h1 style={{ color: "red", backgroundColor: "#ffffff" }}>Bank Account Total: ${total.toLocaleString('en-US', { minimumDecimalFractions: 2 })}</h1>}
-                </Container>
+            {!loading
+                &&
+                currentUser?.email === 'budgetdemo@testing.com'
+                &&
+                total >= 1000
+                &&
+                <Card>
+                    <h1 className='text-success text-center'>Bank Account Total: ${total.toLocaleString("en-US", { minimumFractionDigits: 2 })}</h1>
+                </Card>
+            }
 
-            };
+            {!loading
+                &&
+                currentUser?.email === 'budgetdemo@testing.com'
+                &&
+                total < 1000
+                &&
+                <Card>
+                    <h1 className='text-danger text-center'>Bank Account Total: ${total.toLocaleString('en-US', { minimumDecimalFractions: 2 })}</h1>
+                </Card>
+            }
 
             {!loading && currentUser?.email === 'budgetdemo@testing.com' &&
                 transactions.map((transaction, index) => {
