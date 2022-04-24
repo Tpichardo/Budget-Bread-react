@@ -18,9 +18,9 @@ const Transaction = ({ transaction, index }) => {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{transaction.transactionDate}</td>
-                            <td className='text-center'><Link to={`/transactions/${index}`}>{transaction.transactionName}</Link></td>
-                            {transaction.type === 'Deposit' ? <td className='text-center text-success'>+{Number(transaction.amount).toFixed(2)}</td> : <td className='text-center text-danger'>-{Number(transaction.amount).toFixed(2)}</td>}
+                            <td>{transaction.transaction_date}</td>
+                            <td className='text-center'><Link to={`/transactions/${index}`}>{transaction.transaction_name}</Link></td>
+                            {transaction.transaction_type === 'Deposit' ? <td className='text-center text-success'>+{Number(transaction.transaction_amount).toFixed(2)}</td> : <td className='text-center text-danger'>-{Number(transaction.transaction_amount).toFixed(2)}</td>}
                         </tr>
                     </tbody>
                 </Table>
