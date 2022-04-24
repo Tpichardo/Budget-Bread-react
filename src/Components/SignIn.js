@@ -73,7 +73,7 @@ const SignIn = () => {
                         </div>
                     </Form>
                 </Card.Body>
-                <p className='signIn__signUp'>Don't have an account? <Link to='/signup' k>Sign Up</Link></p>
+                <p className='signIn__signUp'>Don't have an account? <Link to='/signup'>Sign Up</Link></p>
             </Card>
         </Container>
     );

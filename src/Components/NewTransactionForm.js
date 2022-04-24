@@ -15,11 +15,11 @@ function NewTransactionForm() {
     const { currentUser } = useAuth();
 
     const [transaction, setTransaction] = useState({
-        transactionDate: "",
-        transactionName: "",
-        type: "",
-        amount: 0,
-        from: ""
+        transaction_date: "",
+        transaction_name: "",
+        transaction_type: "",
+        transaction_amount: 0,
+        transaction_vendor: ""
     });
 
     const addTransaction = (newTransaction) => {
@@ -36,8 +36,9 @@ function NewTransactionForm() {
     };
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        addTransaction(transaction)
+        e.preventDefault();
+        transaction.current_user_id = currentUser.uid;
+        addTransaction(transaction);
     };
 
 
@@ -48,10 +49,10 @@ function NewTransactionForm() {
                 <Card.Body>
                     <h1 className='newTransaction__header'>Add a New Transaction</h1>
                     <Form onSubmit={handleSubmit}>
-                        <Form.Group controlId="transactionDate">
+                        <Form.Group controlId="transaction_date">
                             <Form.Label>Transaction Date:</Form.Label>
                             <Form.Control
-                                value={transaction.transactionDate}
+                                value={transaction.transaction_date}
                                 type="date"
                                 required
                                 onChange={handleChange}
@@ -59,10 +60,10 @@ function NewTransactionForm() {
                             />
                         </Form.Group>
 
-                        <Form.Group controlId="transactionName">
+                        <Form.Group controlId="transaction_name">
                             <Form.Label>Transaction Name:</Form.Label>
                             <Form.Control
-                                value={transaction.transactionName}
+                                value={transaction.transaction_name}
                                 type="text"
                                 required
                                 onChange={handleChange}
@@ -70,7 +71,7 @@ function NewTransactionForm() {
                             />
                         </Form.Group>
 
-                        <Form.Group controlId='type'>
+                        <Form.Group controlId='transaction_type'>
                             <Form.Label>Transaction Type:</Form.Label>
                             <Form.Control
                                 as='select'
@@ -87,12 +88,12 @@ function NewTransactionForm() {
                             <Form.Label>Amount:</Form.Label>
                             <InputGroup className="mb-3">
                                 <InputGroup.Prepend>
-                                    <InputGroup.Text id="amount">$</InputGroup.Text>
+                                    <InputGroup.Text id="transaction_amount">$</InputGroup.Text>
                                 </InputGroup.Prepend>
                                 <Form.Control
-                                    aria-label="Amount"
-                                    id="amount"
-                                    value={transaction.amount}
+                                    aria-label="transaction_amount"
+                                    id="transaction_amount"
+                                    value={transaction.transaction_amount}
                                     type="number"
                                     required
                                     onChange={handleChange}
@@ -103,10 +104,10 @@ function NewTransactionForm() {
                             </InputGroup>
                         </Form.Group>
 
-                        <Form.Group controlId="from">
+                        <Form.Group controlId="transaction_vendor">
                             <Form.Label>From:</Form.Label>
                             <Form.Control
-                                value={transaction.from}
+                                value={transaction.transaction_vendor}
                                 type="text"
                                 required
                                 onChange={handleChange}
