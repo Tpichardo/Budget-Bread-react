@@ -16,21 +16,25 @@ const Transactions = () => {
     const { currentUser } = useAuth();
 
     useEffect(() => {
-        axios.get(`${API}/transactions`).then((response) => {
-            const { data } = response;
-            setTransactions(data);
-            setLoading(false)
-        }).catch((e) => {
-            console.log(e)
-        });
+        try {
+            if (currentUser) {
+                axios.get(`${API}/transactions?currentUserId=${currentUser.uid}`).then((response) => {
+                    const { data } = response;
+                    setTransactions(data);
+                    setLoading(false);
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }, []);
 
 
     const total = transactions.reduce((sum, transaction) => {
-        if (transaction.type === "Expense") {
-            sum -= Number(transaction.amount);
+        if (transaction.transaction_type === "Expense") {
+            sum -= Number(transaction.transaction_amount);
         } else {
-            sum += Number(transaction.amount);
+            sum += Number(transaction.transaction_amount);
         };
 
         return sum;
@@ -43,8 +47,6 @@ const Transactions = () => {
             {loading && <LoadingView />}
             {!loading
                 &&
-                currentUser?.email === 'budgetdemo@testing.com'
-                &&
                 total >= 1000
                 &&
                 <Card className='m-5'>
@@ -56,8 +58,6 @@ const Transactions = () => {
 
             {!loading
                 &&
-                currentUser?.email === 'budgetdemo@testing.com'
-                &&
                 total < 1000
                 &&
                 <Card className='m-5'>
@@ -67,7 +67,7 @@ const Transactions = () => {
                 </Card>
             }
 
-            {!loading && currentUser?.email === 'budgetdemo@testing.com' &&
+            {!loading &&
                 transactions.map((transaction, index) => {
                     return (
                         <div>
