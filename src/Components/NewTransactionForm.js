@@ -5,7 +5,7 @@ import { withRouter, useHistory, Redirect } from 'react-router-dom';
 import { apiURL } from '../util/apiURL';
 import { useAuth } from '../context/AuthContext';
 import { Container, Form, Button, InputGroup, Card } from 'react-bootstrap';
-import './newTransaction.scss'
+import './NewTransaction.scss'
 
 
 function NewTransactionForm() {
@@ -42,11 +42,11 @@ function NewTransactionForm() {
 
 
     return (
-        <Container className='newTransaction'>
+        <Container className='newTransactionForm'>
             {!currentUser && <Redirect to='/signin' />}
             <Card>
                 <Card.Body>
-                    <h1 className='newTransaction__header'>Add a New Transaction</h1>
+                    <h1 className='newTransactionForm__header'>Add a New Transaction</h1>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="transaction_date">
                             <Form.Label>Transaction Date:</Form.Label>
@@ -115,8 +115,8 @@ function NewTransactionForm() {
                                 rows={3}
                             />
                         </Form.Group>
-                        <div className="newTransaction__BtnDiv">
-                            <Button className='newTransaction__Btn' variant="primary" type="submit">
+                        <div className="newTransactionForm__BtnDiv">
+                            <Button className='newTransactionForm__Btn' variant="primary" type="submit">
                                 Submit
                             </Button>
                         </div>
