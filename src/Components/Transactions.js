@@ -22,12 +22,13 @@ const Transactions = () => {
                     const { data } = response;
                     setTransactions(data);
                     setLoading(false);
+                    console.log(data)
                 });
             }
         } catch (error) {
             console.log(error);
         }
-    }, []);
+    }, [currentUser]);
 
 
     const total = transactions.reduce((sum, transaction) => {
@@ -68,11 +69,9 @@ const Transactions = () => {
             }
 
             {!loading &&
-                transactions.map((transaction, index) => {
+                transactions.map((transaction) => {
                     return (
-                        <div>
-                            <Transaction key={index} transaction={transaction} index={index} />
-                        </div>
+                        <Transaction key={transaction.id} transaction={transaction} />
                     );
                 })}
 
