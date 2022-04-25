@@ -3,57 +3,56 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link, useParams, useHistory, withRouter } from 'react-router-dom';
 import { apiURL } from '../util/apiURL';
+
 import { BsTrash } from 'react-icons/bs'
 import { GrEdit } from 'react-icons/gr';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
 
-const API = apiURL()
+import { Button, Card } from 'react-bootstrap';
+
+
+const API = apiURL();
 
 function TransactionDetails() {
 
     const [transaction, setTransaction] = useState([]);
     let history = useHistory();
-    let { index } = useParams();
-
-    const deleteTransaction = async (index) => {
-        await axios.delete(`${API}/transactions/${index}`)
-            .then((response) => {
-                const transactionArr = [...transaction]
-                transactionArr.splice(index, 1)
-                setTransaction(transactionArr)
-            }).catch((e) => {
-                console.log(e)
-            })
-    };
-
+    const { id } = useParams();
 
     useEffect(() => {
-        axios.get(`${API}/transactions/${index}`)
+        axios.get(`${API}/transactions/${id}`)
             .then((response) => {
                 const { data } = response
-                setTransaction(data)
+                setTransaction(data);
             }).catch((e) => {
                 console.log(e)
                 history.push('/not-found')
             })
-    }, [index, history])
+    }, [id, history])
+
+
+    const deleteTransaction = async (id) => {
+        try {
+            await axios.delete(`${API}/transactions/${id}`);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const handleDelete = async () => {
-        await deleteTransaction(index)
-        history.push('/transactions')
+        await deleteTransaction(id);
+        history.push('/transactions');
     };
 
     return (
 
         <Card style={{ width: '18rem' }}>
             <Card.Body>
-                <Card.Title>{transaction.name}</Card.Title>
-                {transaction.amount < 0 ? <Card.Text className="text-danger">Withdrawal: {transaction.amount}</Card.Text> : <Card.Text className="text-success">Deposit: {transaction.amount}</Card.Text>}
+                <Card.Title>{transaction.transaction_name}</Card.Title>
+                {transaction.transaction_type === "Expense" ? <Card.Text className="text-danger">Expense: {transaction.transaction_amount}</Card.Text> : <Card.Text className="text-success">Deposit: {transaction.transaction_amount}</Card.Text>}
                 <Card.Text>
-                    From: {transaction.from}
+                    From: {transaction.transaction_vendor}
                 </Card.Text>
-                <Link to={`/transactions/${index}/edit`}>
+                <Link to={`/transactions/${id}/edit`}>
                     <Button variant='outline-success'>
                         <GrEdit />
                     </Button>
