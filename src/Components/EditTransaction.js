@@ -37,7 +37,7 @@ function EditTransactionForm() {
                 console.log(e)
                 history.push('/not-found')
             })
-    }, [index, history])
+    }, [id, history])
 
 
     const updateTransaction = async (updatedTransaction) => {
