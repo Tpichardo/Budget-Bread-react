@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.js'
 import { Container, Form, Button, Card, Alert } from 'react-bootstrap';
-import './SignIn.scss'
+import './SignIn.scss';
 
 const SignIn = () => {
     let emailRef = useRef();

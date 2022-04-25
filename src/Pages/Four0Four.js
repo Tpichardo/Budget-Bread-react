@@ -2,8 +2,8 @@ import React from 'react';
 
 const Four0Four = () => {
     return (
-        <h1>I looked everywhere, but still couldn't find the page.</h1>
-    )
-}
+        <h1>Sorry mate, page not found.</h1>
+    );
+};
 
 export default Four0Four;

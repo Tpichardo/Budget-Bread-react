@@ -7,6 +7,6 @@ function Edit() {
             <EditTransactionForm />
         </div>
     );
-}
+};
 
 export default Edit;

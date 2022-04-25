@@ -6,7 +6,7 @@ function New() {
         <div>
             <NewTransactionForm />
         </div>
-    )
-}
+    );
+};
 
 export default New;

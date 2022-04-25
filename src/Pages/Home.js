@@ -17,7 +17,7 @@ const Home = () => {
                 </Link>
             </Jumbotron>
         </Container>
-    )
-}
+    );
+};
 
 export default Home;
