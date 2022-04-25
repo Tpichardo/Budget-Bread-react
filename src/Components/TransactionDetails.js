@@ -44,7 +44,7 @@ function TransactionDetails() {
     };
 
     return (
-        <Card className='col-sm-5 mt-5'>
+        <Card className='col-sm-5 mt-5 mx-auto'>
             <Card.Body>
                 <Card.Title>{transaction.transaction_name}</Card.Title>
                 {transaction.transaction_type === "Expense" ? <Card.Text className="text-danger">Expense: {transaction.transaction_amount}</Card.Text> : <Card.Text className="text-success">Deposit: {transaction.transaction_amount}</Card.Text>}
