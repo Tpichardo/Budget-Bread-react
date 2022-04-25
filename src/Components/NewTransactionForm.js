@@ -5,7 +5,7 @@ import { withRouter, useHistory, Redirect } from 'react-router-dom';
 import { apiURL } from '../util/apiURL';
 import { useAuth } from '../context/AuthContext';
 import { Container, Form, Button, InputGroup, Card } from 'react-bootstrap';
-import './NewTransaction.scss'
+import './NewTransactionForm.scss'
 
 
 function NewTransactionForm() {
