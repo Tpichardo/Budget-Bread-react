@@ -1,0 +1,5 @@
+@import "../styleUtils/layouts";
+
+.transaction {
+  @include shrink-card;
+}

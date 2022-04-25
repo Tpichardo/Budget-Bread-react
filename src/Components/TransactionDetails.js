@@ -7,7 +7,8 @@ import { apiURL } from '../util/apiURL';
 import { BsTrash } from 'react-icons/bs'
 import { GrEdit } from 'react-icons/gr';
 
-import { Button, Card } from 'react-bootstrap';
+import { Button, Card, Container } from 'react-bootstrap';
+import './TransactionDetails.scss';
 
 
 const API = apiURL();
@@ -44,26 +45,28 @@ function TransactionDetails() {
     };
 
     return (
-        <Card className='col-sm-5 mt-5 mx-auto'>
-            <Card.Body>
-                <Card.Title>{transaction.transaction_name}</Card.Title>
-                {transaction.transaction_type === "Expense" ? <Card.Text className="text-danger">Expense: {transaction.transaction_amount}</Card.Text> : <Card.Text className="text-success">Deposit: {transaction.transaction_amount}</Card.Text>}
-                <Card.Text>
-                    From: {transaction.transaction_vendor}
-                </Card.Text>
-                <Link to={`/transactions/${id}/edit`}>
-                    <Button variant='outline-success'>
-                        <GrEdit />
+        <Container>
+            <Card className='col-sm-5 mt-5 mx-auto transaction'>
+                <Card.Body>
+                    <Card.Title>{transaction.transaction_name}</Card.Title>
+                    {transaction.transaction_type === "Expense" ? <Card.Text className="text-danger">Expense: {transaction.transaction_amount}</Card.Text> : <Card.Text className="text-success">Deposit: {transaction.transaction_amount}</Card.Text>}
+                    <Card.Text>
+                        From: {transaction.transaction_vendor}
+                    </Card.Text>
+                    <Link to={`/transactions/${id}/edit`}>
+                        <Button variant='outline-success'>
+                            <GrEdit />
+                        </Button>
+                    </Link>
+                    <Button variant='outline-danger'>
+                        <BsTrash onClick={handleDelete} />
                     </Button>
-                </Link>
-                <Button variant='outline-danger'>
-                    <BsTrash onClick={handleDelete} />
-                </Button>
-                <Link to={'/transactions'}>
-                    <Button variant='outline-primary'>Back</Button>
-                </Link>
-            </Card.Body>
-        </Card>
+                    <Link to={'/transactions'}>
+                        <Button variant='outline-primary'>Back</Button>
+                    </Link>
+                </Card.Body>
+            </Card>
+        </Container>
     )
 }
 
