@@ -10,7 +10,6 @@ const API = apiURL();
 
 function EditTransactionForm() {
     let history = useHistory();
-    let { index } = useParams();
     const { id } = useParams();
     const { currentUser } = useAuth();
 
