@@ -1,10 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import { useState } from 'react';
-import { withRouter, useHistory } from 'react-router-dom';
+import { withRouter, useHistory, Redirect } from 'react-router-dom';
 import { apiURL } from '../util/apiURL';
 import { useAuth } from '../context/AuthContext';
-import { Redirect } from 'react-router-dom';
 import { Container, Form, Button, InputGroup, Card } from 'react-bootstrap';
 import './newTransaction.scss'
 
