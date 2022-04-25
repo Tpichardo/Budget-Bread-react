@@ -2,23 +2,25 @@ import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link, useParams, useHistory } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import { apiURL } from '../util/apiURL';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Container from 'react-bootstrap/Container';
+import { Form, Button, Container, InputGroup } from 'react-bootstrap';
 
 const API = apiURL();
 
 function EditTransactionForm() {
     let history = useHistory();
     let { index } = useParams();
+    const { id } = useParams();
+    const { currentUser } = useAuth();
 
     const [transaction, setTransaction] = useState({
-        date: "",
-        name: "",
-        amount: 0,
-        from: ""
+        current_user_id: currentUser.uid,
+        transaction_date: "",
+        transaction_name: "",
+        transaction_type: "",
+        transaction_amount: 0,
+        transaction_vendor: ""
     })
 
     const handleChange = (e) => {
@@ -27,10 +29,10 @@ function EditTransactionForm() {
 
     //This allows the form to be pre-filled with the Transaction data
     useEffect(() => {
-        axios.get(`${API}/transactions/${index}`)
+        axios.get(`${API}/transactions/${id}`)
             .then((response) => {
-                const { data } = response
-                setTransaction(data)
+                const { data } = response;
+                setTransaction(data);
             }).catch((e) => {
                 console.log(e)
                 history.push('/not-found')
@@ -38,68 +40,66 @@ function EditTransactionForm() {
     }, [index, history])
 
 
-    const updateTransaction = async (updatedTransaction, index) => {
-        await axios.put(`${API}/transactions/${index}`, updatedTransaction)
-            .then((response) => {
-                const transactionArr = [...transaction]
-                transactionArr[index] = updatedTransaction
-                setTransaction(transactionArr)
-            }).catch((e) => {
-                console.log(e)
-            })
-    }
+    const updateTransaction = async (updatedTransaction) => {
+        try {
+            await axios.put(`${API}/transactions/${id}`, updatedTransaction)
+                .then(() => {
+                    history.push(`/transactions/${id}`);
+                })
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await updateTransaction(transaction, index);
-        history.push(`/transactions/${index}`);
+        updateTransaction(transaction, id);
     };
 
     return (
         <Container>
             <h1>Edit Transaction</h1>
             <Form onSubmit={handleSubmit}>
-                <Form.Group controlId="date">
+                <Form.Group controlId="transaction_date">
                     <Form.Label>Date</Form.Label>
                     <Form.Control
-                        value={transaction.date}
+                        value={transaction.transaction_date}
                         type="date"
                         required
                         onChange={handleChange}
                         placeholder="Date"
                     />
                 </Form.Group>
-                <Form.Group controlId="name">
+                <Form.Group controlId="transaction_name">
                     <Form.Label>Name</Form.Label>
                     <Form.Control
-                        value={transaction.name}
+                        value={transaction.transaction_name}
                         type="text"
                         required
                         onChange={handleChange}
-                        placeholder="Name"
+                        placeholder="Transaction name"
                     />
                 </Form.Group>
                 <InputGroup className="mb-3">
                     <InputGroup.Prepend>
-                        <InputGroup.Text id="amount">$</InputGroup.Text>
+                        <InputGroup.Text id="transaction_amount">$</InputGroup.Text>
                     </InputGroup.Prepend>
                     <Form.Control
                         aria-label="Amount (to the nearest dollar)"
-                        id="amount"
-                        value={transaction.amount}
+                        id="transaction_amount"
+                        value={transaction.transaction_amount}
                         type="number"
                         required
                         onChange={handleChange}
-                        placeholder="Amount"
                     />
                     <InputGroup.Append>
                         <InputGroup.Text>.00</InputGroup.Text>
                     </InputGroup.Append>
                 </InputGroup>
-                <Form.Group controlId="from">
+                <Form.Group controlId="transaction_vendor">
                     <Form.Label>From</Form.Label>
                     <Form.Control
-                        value={transaction.from}
+                        value={transaction.transaction_vendor}
                         type="text"
                         required
                         onChange={handleChange}
@@ -112,7 +112,7 @@ function EditTransactionForm() {
                 </Button>
             </Form>
             <br />
-            <Link to={`/transactions/${index}`}>
+            <Link to={`/transactions/${id}`}>
                 <Button variant='primary'>
                     Back
                 </Button>
