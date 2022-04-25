@@ -1,10 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { Link, useParams, useHistory } from 'react-router-dom';
+import { Link, useParams, useHistory, Redirect } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { apiURL } from '../util/apiURL';
-import { Form, Button, Container, InputGroup } from 'react-bootstrap';
+import { Form, Button, Container, Card, InputGroup } from 'react-bootstrap';
+import { AiOutlineArrowLeft } from 'react-icons/ai';
+import './EditTransaction.scss';
+
 
 const API = apiURL();
 
@@ -56,66 +59,72 @@ function EditTransactionForm() {
     };
 
     return (
-        <Container>
-            <h1>Edit Transaction</h1>
-            <Form onSubmit={handleSubmit}>
-                <Form.Group controlId="transaction_date">
-                    <Form.Label>Date</Form.Label>
-                    <Form.Control
-                        value={transaction.transaction_date}
-                        type="date"
-                        required
-                        onChange={handleChange}
-                        placeholder="Date"
-                    />
-                </Form.Group>
-                <Form.Group controlId="transaction_name">
-                    <Form.Label>Name</Form.Label>
-                    <Form.Control
-                        value={transaction.transaction_name}
-                        type="text"
-                        required
-                        onChange={handleChange}
-                        placeholder="Transaction name"
-                    />
-                </Form.Group>
-                <InputGroup className="mb-3">
-                    <InputGroup.Prepend>
-                        <InputGroup.Text id="transaction_amount">$</InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <Form.Control
-                        aria-label="Amount (to the nearest dollar)"
-                        id="transaction_amount"
-                        value={transaction.transaction_amount}
-                        type="number"
-                        required
-                        onChange={handleChange}
-                    />
-                    <InputGroup.Append>
-                        <InputGroup.Text>.00</InputGroup.Text>
-                    </InputGroup.Append>
-                </InputGroup>
-                <Form.Group controlId="transaction_vendor">
-                    <Form.Label>From</Form.Label>
-                    <Form.Control
-                        value={transaction.transaction_vendor}
-                        type="text"
-                        required
-                        onChange={handleChange}
-                        placeholder="Description of where transaction came from"
-                        as="textarea"
-                        rows={3} />
-                </Form.Group>
-                <Button variant='primary' type='submit'>
-                    Submit Change
-                </Button>
-            </Form>
-            <br />
-            <Link to={`/transactions/${id}`}>
-                <Button variant='primary'>
-                    Back
-                </Button>
-            </Link>
+        <Container className='editTransactionForm'>
+            {!currentUser && <Redirect to='/signin' />}
+            <h3>
+                <Link style={{ textDecoration: 'none', color: 'black' }} to={`/transactions/${id}`}>
+                    <AiOutlineArrowLeft /> Back
+                </Link>
+            </h3>
+            <Card>
+                <Card.Body>
+                    <h1 className='editTransactionForm__header'>Edit Transaction</h1>
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group controlId="transaction_date">
+                            <Form.Label>Date</Form.Label>
+                            <Form.Control
+                                value={transaction.transaction_date}
+                                type="date"
+                                required
+                                onChange={handleChange}
+                                placeholder="Date"
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="transaction_name">
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control
+                                value={transaction.transaction_name}
+                                type="text"
+                                required
+                                onChange={handleChange}
+                                placeholder="Transaction name"
+                            />
+                        </Form.Group>
+                        <InputGroup className="mb-3">
+                            <InputGroup.Prepend>
+                                <InputGroup.Text id="transaction_amount">$</InputGroup.Text>
+                            </InputGroup.Prepend>
+                            <Form.Control
+                                aria-label="Amount (to the nearest dollar)"
+                                id="transaction_amount"
+                                value={transaction.transaction_amount}
+                                type="number"
+                                required
+                                onChange={handleChange}
+                            />
+                            <InputGroup.Append>
+                                <InputGroup.Text>.00</InputGroup.Text>
+                            </InputGroup.Append>
+                        </InputGroup>
+                        <Form.Group controlId="transaction_vendor">
+                            <Form.Label>From</Form.Label>
+                            <Form.Control
+                                value={transaction.transaction_vendor}
+                                type="text"
+                                required
+                                onChange={handleChange}
+                                placeholder="Description of where transaction came from"
+                                as="textarea"
+                                rows={3} />
+                        </Form.Group>
+                        <div className='editTransactionForm__BtnDiv'>
+                            <Button className='editTransactionForm__Btn' variant='primary' type='submit'>
+                                Submit Change
+                            </Button>
+                        </div>
+                    </Form>
+                </Card.Body>
+            </Card>
         </Container>
 
     )
