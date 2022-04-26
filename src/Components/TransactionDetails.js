@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { Link, useParams, useHistory, withRouter } from 'react-router-dom';
+import { Link, useParams, useHistory, withRouter, Redirect } from 'react-router-dom';
 import { apiURL } from '../util/apiURL';
+import { useAuth } from '../context/AuthContext'
 
 import { BsTrash } from 'react-icons/bs'
 import { GrEdit } from 'react-icons/gr';
@@ -18,6 +19,7 @@ function TransactionDetails() {
     const [transaction, setTransaction] = useState([]);
     let history = useHistory();
     const { id } = useParams();
+    const { currentUser } = useAuth();
 
     useEffect(() => {
         axios.get(`${API}/transactions/${id}`)
@@ -46,6 +48,7 @@ function TransactionDetails() {
 
     return (
         <Container>
+            {!currentUser && <Redirect to='/signin' />}
             <Card className='col-sm-5 mt-5 mx-auto transaction'>
                 <Card.Body>
                     <Card.Title>{transaction.transaction_name}</Card.Title>
