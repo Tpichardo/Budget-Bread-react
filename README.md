@@ -1,10 +1,11 @@
 # Bread 🍞
-Full Stack Budgeting Application that allows users to easily track their transactions
-  - Integrated `Postgres` databse into `Express` API to allow users to save their transactions
+Budgeting Application that allows users to easily track their transactions
+  - Created a full-stack application with CRUD functionality using `Express` on the backend and `React` on the frontend
+  - Integrated `Postgres` database into `Express` API to allow users to save their transactions
   - Used `Firebase Authentication` to authenticate users
 
-### [Front-end](https://save-your-bread.netlify.app/) 
-### [Back-end](https://thawing-woodland-27640.herokuapp.com)
+### [Frontend](https://save-your-bread.netlify.app/) 
+### [Backend](https://thawing-woodland-27640.herokuapp.com)
 
 
 ## Endpoints
