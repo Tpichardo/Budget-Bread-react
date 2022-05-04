@@ -8,7 +8,7 @@ Budgeting Application that allows users to easily track their transactions
 ### [Backend](https://thawing-woodland-27640.herokuapp.com)
 
 
-## Endpoints
+## Routes
 | #      | Action      | URL                                   | HTTP Verb  | CRUD   | Description                                   |
 | :----: | :----:      | :----:                                | :----:     | :----: | :----:                                        |
 | 1      | Index       | /transactions?current_user_id=userId  | GET        | Read   | Get a list of the current user's transactions |
