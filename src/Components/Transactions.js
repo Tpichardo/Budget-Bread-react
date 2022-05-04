@@ -18,7 +18,7 @@ const Transactions = () => {
     useEffect(() => {
         try {
             if (currentUser) {
-                axios.get(`${API}/transactions?currentUserId=${currentUser.uid}`).then((response) => {
+                axios.get(`${API}/transactions?current_user_id=${currentUser.uid}`).then((response) => {
                     const { data } = response;
                     setTransactions(data);
                     setLoading(false);
