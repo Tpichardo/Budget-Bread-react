@@ -6,7 +6,7 @@ import Transaction from './Transaction'
 import LoadingView from './LoadingView';
 import { Redirect } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Card } from 'react-bootstrap';
+import { Card, Table, Container } from 'react-bootstrap';
 
 const API = apiURL();
 
@@ -69,12 +69,22 @@ const Transactions = () => {
             }
 
             {!loading &&
-                transactions.map((transaction) => {
-                    return (
-                        <Transaction key={transaction.id} transaction={transaction} />
-                    );
-                })}
+                <Container>
+                    <Table bordered hover size="sm" style={{ backgroundColor: 'white' }} >
+                        <tr>
+                            <th className='col-1 text-center'>Date</th>
+                            <th className='col-1 text-center'>Name</th>
+                            <th className='col-1 text-center'>Amount</th>
+                        </tr>
+                        {transactions.map((transaction) => {
+                            return (
+                                <Transaction key={transaction.id} transaction={transaction} />
+                            );
+                        })}
+                    </Table>
+                </Container>
 
+            }
         </div>
     );
 };
