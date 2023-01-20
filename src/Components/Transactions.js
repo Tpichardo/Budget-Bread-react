@@ -22,7 +22,6 @@ const Transactions = () => {
                     const { data } = response;
                     setTransactions(data);
                     setLoading(false);
-                    console.log(data)
                 });
             }
         } catch (error) {
