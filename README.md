@@ -6,7 +6,7 @@ Budgeting Application that allows users to easily track their transactions
 - Integrated `Postgres` database into `Express` API to allow users to save their transactions
 - Used `Firebase Authentication` to authenticate users
 
-### [Front-end](https://save-your-bread.netlify.app/) | [Back-end](https://budget-bread-api.onrender.com)
+### [Front-end](https://save-your-bread.netlify.app/) | [Back-end](https://budget-bread-db.fly.dev)
 
 ## Front-end Routes
 
