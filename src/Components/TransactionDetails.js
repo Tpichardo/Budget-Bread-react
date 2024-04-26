@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link, useParams, withRouter, Redirect } from "react-router-dom";
+import { Link, useParams, Redirect } from "react-router-dom";
 import { useNavigate } from "react-router-dom-v5-compat";
 import { apiURL } from "../util/apiURL";
 import { useAuth } from "../context/AuthContext";
@@ -83,4 +83,4 @@ function TransactionDetails() {
 	);
 }
 
-export default withRouter(TransactionDetails);
+export default TransactionDetails;
