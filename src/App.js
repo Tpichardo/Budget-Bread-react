@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Home from "./Pages/Home.js";
 import Index from "./Pages/Index.js";
@@ -19,38 +19,44 @@ function App() {
 	return (
 		<div className="App">
 			<NavBar />
-			<Switch>
+			{/* <Switch> */}
+			<Routes>
+				<Route
+					path="/"
+					element={<Home />}
+				/>
+				<Route
+					path="/signin"
+					element={<SignIn />}
+				/>
+				<Route
+					path="/signup"
+					element={<SignUp />}
+				/>
 				<Route
 					exact
-					path="/">
-					<Home />
-				</Route>
-				<Route path="/signin">
-					<SignIn />
-				</Route>
-				<Route path="/signup">
-					<SignUp />
-				</Route>
+					path="/transactions"
+					element={<Index />}
+				/>
+				<Route
+					path="/transactions/new"
+					element={<New />}
+				/>
 				<Route
 					exact
-					path="/transactions">
-					<Index />
-				</Route>
-				<Route path="/transactions/new">
-					<New />
-				</Route>
+					path="/transactions/:id"
+					element={<Show />}
+				/>
 				<Route
-					exact
-					path="/transactions/:id">
-					<Show />
-				</Route>
-				<Route path="/transactions/:id/edit">
-					<Edit />
-				</Route>
-				<Route path="*">
-					<Four0Four />
-				</Route>
-			</Switch>
+					path="/transactions/:id/edit"
+					element={<Edit />}
+				/>
+				<Route
+					path="*"
+					element={<Four0Four />}
+				/>
+			</Routes>
+			{/* </Switch> */}
 		</div>
 	);
 }
