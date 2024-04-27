@@ -2,8 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import { AuthProvider } from "./context/AuthContext";
-import { BrowserRouter } from "react-router-dom/cjs/react-router-dom.min";
-import { CompatRouter } from "react-router-dom-v5-compat";
+import { BrowserRouter } from "react-router-dom";
 import "./index.scss";
 import reportWebVitals from "./reportWebVitals";
 
@@ -11,9 +10,7 @@ ReactDOM.render(
 	<React.StrictMode>
 		<AuthProvider>
 			<BrowserRouter>
-				<CompatRouter>
-					<App />
-				</CompatRouter>
+				<App />
 			</BrowserRouter>
 		</AuthProvider>
 	</React.StrictMode>,
