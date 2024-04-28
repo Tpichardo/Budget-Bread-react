@@ -1,7 +1,7 @@
 import React from "react";
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom-v5-compat";
+import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.js";
 import { Container, Form, Button, Card, Alert } from "react-bootstrap";
 import "./SignIn.scss";
@@ -11,8 +11,7 @@ const SignIn = () => {
 	let passwordRef = useRef();
 	const [error, setError] = useState("");
 	const [loading, setLoading] = useState(false);
-	const { signIn } = useAuth();
-	const navigate = useNavigate();
+	const { signIn, currentUser } = useAuth();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -21,7 +20,6 @@ const SignIn = () => {
 			setError("");
 			setLoading(true);
 			await signIn(emailRef.current.value, passwordRef.current.value);
-			navigate("/transactions");
 		} catch (error) {
 			console.log(error);
 			setError("Failed to sign in.");
@@ -34,7 +32,6 @@ const SignIn = () => {
 			setError("");
 			setLoading(true);
 			await signIn("budgetdemo@testing.com", "Thisisthedemopassword!*");
-			navigate("/transactions");
 		} catch (error) {
 			console.log(error);
 			setError("Demo login is currently unavailable");
@@ -44,6 +41,7 @@ const SignIn = () => {
 
 	return (
 		<Container>
+			{currentUser && <Navigate to="/transactions" />}
 			<Card className="signIn">
 				<h3 className="signIn__greeting">Welcome!</h3>
 				{error && <Alert variant="danger">{error}</Alert>}
