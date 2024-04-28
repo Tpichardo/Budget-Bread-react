@@ -1,8 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link, useParams, Redirect } from "react-router-dom";
-import { useNavigate } from "react-router-dom-v5-compat";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { apiURL } from "../util/apiURL";
 import { Form, Button, Container, Card, InputGroup } from "react-bootstrap";
@@ -17,7 +16,7 @@ function EditTransactionForm() {
 	const { currentUser } = useAuth();
 
 	const [transaction, setTransaction] = useState({
-		current_user_id: currentUser.uid,
+		current_user_id: currentUser?.uid,
 		transaction_date: "",
 		transaction_name: "",
 		transaction_type: "",
@@ -31,17 +30,18 @@ function EditTransactionForm() {
 
 	//This allows the form to be pre-filled with the Transaction data
 	useEffect(() => {
-		axios
-			.get(`${API}/transactions/${id}`)
-			.then((response) => {
-				const { data } = response;
-				setTransaction(data);
-			})
-			.catch((e) => {
-				console.log(e);
-				navigate.push("/not-found");
-			});
-	}, [id, navigate]);
+		try {
+			if (currentUser.uid) {
+				axios.get(`${API}/transactions/${id}`).then((response) => {
+					const { data } = response;
+					setTransaction(data);
+				});
+			}
+		} catch (error) {
+			console.log(error);
+			navigate("/not-found");
+		}
+	}, [id]);
 
 	const updateTransaction = async (updatedTransaction) => {
 		try {
@@ -62,7 +62,6 @@ function EditTransactionForm() {
 
 	return (
 		<Container className="editTransactionForm">
-			{!currentUser && <Redirect to="/signin" />}
 			<h3>
 				<Link
 					style={{ textDecoration: "none", color: "black" }}

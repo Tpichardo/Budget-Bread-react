@@ -1,15 +1,14 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
-import { Redirect } from "react-router-dom";
-import { useNavigate } from "react-router-dom-v5-compat";
+import { useNavigate, Navigate } from "react-router-dom";
 import { apiURL } from "../util/apiURL";
 import { useAuth } from "../context/AuthContext";
 import { Container, Form, Button, InputGroup, Card } from "react-bootstrap";
 import "./NewTransactionForm.scss";
 
 function NewTransactionForm() {
-	const navigate = useNavigate();
+	let navigate = useNavigate();
 	const API = apiURL();
 	const { currentUser } = useAuth();
 
@@ -22,14 +21,13 @@ function NewTransactionForm() {
 	});
 
 	const addTransaction = (newTransaction) => {
-		axios
-			.post(`${API}/transactions`, newTransaction)
-			.then((response) => {
+		try {
+			axios.post(`${API}/transactions`, newTransaction).then((response) => {
 				navigate("/transactions");
-			})
-			.catch((e) => {
-				console.log(e);
 			});
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	const handleChange = (e) => {
@@ -44,7 +42,7 @@ function NewTransactionForm() {
 
 	return (
 		<Container className="newTransactionForm">
-			{!currentUser && <Redirect to="/signin" />}
+			{!currentUser && <Navigate to="/signin" />}
 			<Card>
 				<Card.Body>
 					<h1 className="newTransactionForm__header">Add a New Transaction</h1>
