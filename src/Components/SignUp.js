@@ -1,8 +1,7 @@
 import React from "react";
 import { useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext.js";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom-v5-compat";
+import { Link, useNavigate } from "react-router-dom";
 import { Card, Form, Button, Alert, Container } from "react-bootstrap";
 import { auth } from "../util/firebaseConfig.js";
 import { updateProfile } from "firebase/auth";
