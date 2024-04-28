@@ -1,8 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link, useParams, Redirect } from "react-router-dom";
-import { useNavigate } from "react-router-dom-v5-compat";
+import { Link, useParams, useNavigate, Navigate } from "react-router-dom";
 import { apiURL } from "../util/apiURL";
 import { useAuth } from "../context/AuthContext";
 
@@ -31,7 +30,7 @@ function TransactionDetails() {
 				console.log(e);
 				navigate("/not-found");
 			});
-	}, [id]);
+	}, [id, navigate]);
 
 	const deleteTransaction = async (id) => {
 		try {
@@ -50,9 +49,13 @@ function TransactionDetails() {
 		}
 	};
 
+	const handleGoBack = () => {
+		navigate("/transactions");
+	};
+
 	return (
 		<Container>
-			{!currentUser && <Redirect to="/signin" />}
+			{!currentUser && <Navigate to="/signin" />}
 			<Card className="col-sm-5 mt-5 mx-auto transaction">
 				<Card.Body>
 					<Card.Title>{transaction.transaction_name}</Card.Title>
@@ -74,9 +77,11 @@ function TransactionDetails() {
 					<Button variant="outline-danger">
 						<BsTrash onClick={handleDelete} />
 					</Button>
-					<Link to={"/transactions"}>
-						<Button variant="outline-primary">Back</Button>
-					</Link>
+					<Button
+						variant="outline-primary"
+						onClick={handleGoBack}>
+						Back
+					</Button>
 				</Card.Body>
 			</Card>
 		</Container>
