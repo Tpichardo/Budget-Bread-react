@@ -31,7 +31,9 @@ function NewTransactionForm() {
 	};
 
 	const handleChange = (e) => {
-		setTransaction({ ...transaction, [e.target.id]: e.target.value });
+		setTransaction((currentTransactions) => {
+			return { ...currentTransactions, [e.target.id]: e.target.value };
+		});
 	};
 
 	const handleSubmit = (e) => {
