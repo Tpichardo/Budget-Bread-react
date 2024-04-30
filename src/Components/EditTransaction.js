@@ -25,7 +25,9 @@ function EditTransactionForm() {
 	});
 
 	const handleChange = (e) => {
-		setTransaction({ ...transaction, [e.target.id]: e.target.value });
+		setTransaction((currentTransaction) => {
+			return { ...currentTransaction, [e.target.id]: e.target.value };
+		});
 	};
 
 	//This allows the form to be pre-filled with the Transaction data
