@@ -19,7 +19,6 @@ function App() {
 	return (
 		<div className="App">
 			<NavBar />
-			{/* <Switch> */}
 			<Routes>
 				<Route
 					path="/"
@@ -56,7 +55,6 @@ function App() {
 					element={<Four0Four />}
 				/>
 			</Routes>
-			{/* </Switch> */}
 		</div>
 	);
 }
