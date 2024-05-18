@@ -1,9 +1,9 @@
 import React from "react";
-import axios from "axios";
 import { useState, useEffect } from "react";
 import { apiURL } from "../util/apiURL";
 import Transaction from "./Transaction";
 import LoadingView from "./LoadingView";
+import ErrorView from "./ErrorView";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { Card, Table, Container } from "react-bootstrap";
@@ -13,22 +13,31 @@ const API = apiURL();
 const Transactions = () => {
 	const [transactions, setTransactions] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const [errorMsg, setErrorMsg] = useState("");
 	const { currentUser } = useAuth();
 
 	useEffect(() => {
-		try {
-			if (currentUser) {
-				axios
-					.get(`${API}/transactions?current_user_id=${currentUser.uid}`)
-					.then((response) => {
-						const { data } = response;
+		const fetchUserTransactions = async () => {
+			try {
+				if (currentUser) {
+					const response = await fetch(
+						`${API}/transactions?current_user_id=${currentUser.uid}`
+					);
+					if (response.ok) {
+						const { data } = await response.json();
 						setTransactions(data);
-						setLoading(false);
-					});
+					} else {
+						const { error } = await response.json();
+						setErrorMsg(error);
+					}
+				}
+			} catch (err) {
+				setErrorMsg(err.message);
+			} finally {
+				setLoading(false);
 			}
-		} catch (error) {
-			console.log(error);
-		}
+		};
+		fetchUserTransactions();
 	}, [currentUser]);
 
 	const total = transactions.reduce((sum, transaction) => {
@@ -44,53 +53,42 @@ const Transactions = () => {
 	return (
 		<div>
 			{!currentUser && <Navigate to="/signin" />}
-
 			{loading && <LoadingView />}
-			{!loading && total >= 1000 && (
-				<Card className="m-5">
-					<Card.Body>
-						<h1 className="text-success text-center">
-							Bank Account Total: $
-							{total.toLocaleString("en-US", { minimumFractionDigits: 2 })}
-						</h1>
-					</Card.Body>
-				</Card>
-			)}
+			{errorMsg && <ErrorView errorMsg={errorMsg} />}
 
-			{!loading && total < 1000 && (
-				<Card className="m-5">
-					<Card.Body>
-						<h1 className="text-danger text-center">
-							Bank Account Total: $
-							{total.toLocaleString("en-US", { minimumDecimalFractions: 2 })}
-						</h1>
-					</Card.Body>
-				</Card>
-			)}
+			<Card className="m-5">
+				<Card.Body>
+					<h1
+						className={`${
+							total >= 1000 ? "text-success" : "text-danger"
+						} text-center`}>
+						Bank Account Total: $
+						{total.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+					</h1>
+				</Card.Body>
+			</Card>
 
-			{!loading && (
-				<Container>
-					<Table
-						bordered
-						hover
-						size="sm"
-						style={{ backgroundColor: "white" }}>
-						<tr>
-							<th className="col-1 text-center">Date</th>
-							<th className="col-1 text-center">Name</th>
-							<th className="col-1 text-center">Amount</th>
-						</tr>
-						{transactions.map((transaction) => {
-							return (
-								<Transaction
-									key={transaction.id}
-									transaction={transaction}
-								/>
-							);
-						})}
-					</Table>
-				</Container>
-			)}
+			<Container>
+				<Table
+					bordered
+					hover
+					size="sm"
+					style={{ backgroundColor: "white" }}>
+					<tr>
+						<th className="col-1 text-center">Date</th>
+						<th className="col-1 text-center">Name</th>
+						<th className="col-1 text-center">Amount</th>
+					</tr>
+					{transactions.map((transaction) => {
+						return (
+							<Transaction
+								key={transaction.id}
+								transaction={transaction}
+							/>
+						);
+					})}
+				</Table>
+			</Container>
 		</div>
 	);
 };
