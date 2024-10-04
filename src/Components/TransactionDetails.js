@@ -1,14 +1,16 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link, useParams, useNavigate, Navigate } from "react-router-dom";
 import { apiURL } from "../util/apiURL";
+import { Link, useParams, useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+
+import ErrorView from "./ErrorView";
 
 import { BsTrash } from "react-icons/bs";
 import { GrEdit } from "react-icons/gr";
-
 import { Button, Card, Container } from "react-bootstrap";
+
 import "./TransactionDetails.scss";
 
 const API = apiURL();
@@ -62,34 +64,38 @@ function TransactionDetails() {
 	return (
 		<Container>
 			{!currentUser && <Navigate to="/signin" />}
-			<Card className="col-sm-5 mt-5 mx-auto transaction">
-				<Card.Body>
-					<Card.Title>{transaction.transaction_name}</Card.Title>
-					{transaction.transaction_type === "Expense" ? (
-						<Card.Text className="text-danger">
-							Expense: {transaction.transaction_amount}
-						</Card.Text>
-					) : (
-						<Card.Text className="text-success">
-							Deposit: {transaction.transaction_amount}
-						</Card.Text>
-					)}
-					<Card.Text>From: {transaction.transaction_vendor}</Card.Text>
-					<Link to={`/transactions/${id}/edit`}>
-						<Button variant="outline-success">
-							<GrEdit />
+			{errorMsg ? (
+				<ErrorView errorMsg={errorMsg} />
+			) : (
+				<Card className="col-sm-5 mt-5 mx-auto transaction">
+					<Card.Body>
+						<Card.Title>{transaction.transaction_name}</Card.Title>
+						{transaction.transaction_type === "Expense" ? (
+							<Card.Text className="text-danger">
+								Expense: {transaction.transaction_amount}
+							</Card.Text>
+						) : (
+							<Card.Text className="text-success">
+								Deposit: {transaction.transaction_amount}
+							</Card.Text>
+						)}
+						<Card.Text>From: {transaction.transaction_vendor}</Card.Text>
+						<Link to={`/transactions/${id}/edit`}>
+							<Button variant="outline-success">
+								<GrEdit />
+							</Button>
+						</Link>
+						<Button variant="outline-danger">
+							<BsTrash onClick={handleDelete} />
 						</Button>
-					</Link>
-					<Button variant="outline-danger">
-						<BsTrash onClick={handleDelete} />
-					</Button>
-					<Button
-						variant="outline-primary"
-						onClick={handleGoBack}>
-						Back
-					</Button>
-				</Card.Body>
-			</Card>
+						<Button
+							variant="outline-primary"
+							onClick={handleGoBack}>
+							Back
+						</Button>
+					</Card.Body>
+				</Card>
+			)}
 		</Container>
 	);
 }
