@@ -15,22 +15,28 @@ const API = apiURL();
 
 function TransactionDetails() {
 	const [transaction, setTransaction] = useState([]);
+	const [errorMsg, setErrorMsg] = useState("");
 	const navigate = useNavigate();
 	const { id } = useParams();
 	const { currentUser } = useAuth();
 
 	useEffect(() => {
-		axios
-			.get(`${API}/transactions/${id}`)
-			.then((response) => {
-				const { data } = response;
-				setTransaction(data);
-			})
-			.catch((e) => {
-				console.log(e);
-				navigate("/not-found");
-			});
-	}, [id, navigate]);
+		const fetchTransactionById = async () => {
+			try {
+				const response = await fetch(`${API}/transactions/${id}`);
+				if (response.ok) {
+					const { data } = await response.json();
+					setTransaction(data);
+				} else {
+					const { error } = await response.json();
+					setErrorMsg(error);
+				}
+			} catch (err) {
+				setErrorMsg(err.message);
+			}
+		};
+		fetchTransactionById(id);
+	}, [id]);
 
 	const deleteTransaction = async (id) => {
 		try {
