@@ -12,7 +12,9 @@ const getUserTransactions = async (currentUserId) => {
 			const { error } = await response.json();
 			throw new Error(error.message);
 		}
-		return response;
+
+		const { data } = await response.json();
+		return data;
 	} catch (err) {
 		throw err;
 	}
