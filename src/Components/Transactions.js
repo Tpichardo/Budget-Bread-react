@@ -20,8 +20,7 @@ const Transactions = () => {
 		const fetchUserTransactions = async () => {
 			try {
 				if (currentUser) {
-					const response = await getUserTransactions(currentUser.uid);
-					const { data } = await response.json();
+					const data = await getUserTransactions(currentUser.uid);
 					setTransactions(data);
 				}
 			} catch (err) {
