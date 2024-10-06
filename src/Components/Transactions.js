@@ -1,14 +1,14 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { apiURL } from "../util/apiURL";
+
+import getUserTransactions from "../util/apiFunctions.js/getUserTransactions";
 import Transaction from "./Transaction";
 import LoadingView from "./LoadingView";
 import ErrorView from "./ErrorView";
+
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { Card, Table, Container } from "react-bootstrap";
-
-const API = apiURL();
 
 const Transactions = () => {
 	const [transactions, setTransactions] = useState([]);
@@ -20,16 +20,9 @@ const Transactions = () => {
 		const fetchUserTransactions = async () => {
 			try {
 				if (currentUser) {
-					const response = await fetch(
-						`${API}/transactions?current_user_id=${currentUser.uid}`
-					);
-					if (response.ok) {
-						const { data } = await response.json();
-						setTransactions(data);
-					} else {
-						const { error } = await response.json();
-						setErrorMsg(error);
-					}
+					const response = await getUserTransactions(currentUser.uid);
+					const { data } = await response.json();
+					setTransactions(data);
 				}
 			} catch (err) {
 				setErrorMsg(err.message);
