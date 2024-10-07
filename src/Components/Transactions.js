@@ -2,14 +2,12 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 import getUserTransactions from "../util/apiFunctions.js/getUserTransactions";
-import Transaction from "./Transaction";
 import TransactionsTable from "./TransactionsTable";
 import LoadingView from "./LoadingView";
 import ErrorView from "./ErrorView";
 
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { Card, Table, Container } from "react-bootstrap";
 
 const Transactions = () => {
 	const [transactions, setTransactions] = useState([]);
@@ -61,44 +59,7 @@ const Transactions = () => {
 	return (
 		<div>
 			{!currentUser && <Navigate to="/signin" />}
-			{loading && <LoadingView />}
-			{errorMsg && <ErrorView errorMsg={errorMsg} />}
-
-			<Card className="m-5">
-				<Card.Body>
-					<h1
-						className={`${
-							transactionsTotal >= 1000 ? "text-success" : "text-danger"
-						} text-center`}>
-						Bank Account Total: $
-						{transactionsTotal.toLocaleString("en-US", {
-							minimumFractionDigits: 2,
-						})}
-					</h1>
-				</Card.Body>
-			</Card>
-
-			<Container>
-				<Table
-					bordered
-					hover
-					size="sm"
-					style={{ backgroundColor: "white" }}>
-					<tr>
-						<th className="col-1 text-center">Date</th>
-						<th className="col-1 text-center">Name</th>
-						<th className="col-1 text-center">Amount</th>
-					</tr>
-					{transactions.map((transaction) => {
-						return (
-							<Transaction
-								key={transaction.id}
-								transaction={transaction}
-							/>
-						);
-					})}
-				</Table>
-			</Container>
+			{renderContent()}
 		</div>
 	);
 };
