@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 
 import getUserTransactions from "../util/apiFunctions.js/getUserTransactions";
 import Transaction from "./Transaction";
+import TransactionsTable from "./TransactionsTable";
 import LoadingView from "./LoadingView";
 import ErrorView from "./ErrorView";
 
@@ -32,7 +33,7 @@ const Transactions = () => {
 		fetchUserTransactions();
 	}, [currentUser]);
 
-	const total = transactions.reduce((sum, transaction) => {
+	const transactionsTotal = transactions.reduce((sum, transaction) => {
 		if (transaction.transaction_type === "Expense") {
 			sum -= Number(transaction.transaction_amount);
 		} else {
@@ -41,6 +42,21 @@ const Transactions = () => {
 
 		return sum;
 	}, 0);
+
+	const renderContent = () => {
+		if (loading) {
+			return <LoadingView />;
+		} else if (errorMsg) {
+			return <ErrorView errorMsg={errorMsg} />;
+		} else {
+			return (
+				<TransactionsTable
+					transactions={transactions}
+					transactionsTotal={transactionsTotal}
+				/>
+			);
+		}
+	};
 
 	return (
 		<div>
@@ -52,10 +68,12 @@ const Transactions = () => {
 				<Card.Body>
 					<h1
 						className={`${
-							total >= 1000 ? "text-success" : "text-danger"
+							transactionsTotal >= 1000 ? "text-success" : "text-danger"
 						} text-center`}>
 						Bank Account Total: $
-						{total.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+						{transactionsTotal.toLocaleString("en-US", {
+							minimumFractionDigits: 2,
+						})}
 					</h1>
 				</Card.Body>
 			</Card>
