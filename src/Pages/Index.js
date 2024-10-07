@@ -1,9 +1,7 @@
-import React from 'react';
-import Transactions from '../Components/Transactions.js';
+import React from "react";
+import TransactionDataHandler from "../Components/TransactionDataHandler";
 
 function Index() {
-    return (
-        <Transactions />
-    );
-};
+	return <TransactionDataHandler />;
+}
 export default Index;
