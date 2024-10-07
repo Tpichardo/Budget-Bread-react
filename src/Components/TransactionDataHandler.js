@@ -9,7 +9,7 @@ import ErrorView from "./ErrorView";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-const Transactions = () => {
+const TransactionDataHandler = () => {
 	const [transactions, setTransactions] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [errorMsg, setErrorMsg] = useState("");
@@ -64,4 +64,4 @@ const Transactions = () => {
 	);
 };
 
-export default Transactions;
+export default TransactionDataHandler;
