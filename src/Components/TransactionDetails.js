@@ -42,7 +42,14 @@ function TransactionDetails() {
 
 	const deleteTransaction = async (id) => {
 		try {
-			await axios.delete(`${API}/transactions/${id}`);
+			const response = await fetch(`${API}/transactions/${id}`, {
+				method: "DELETE",
+				headers: { "content-type": "application/json" },
+			});
+			if (!response.ok) {
+				const { error } = await response.json();
+				throw new Error(error.message);
+			}
 		} catch (error) {
 			console.log(error);
 		}
