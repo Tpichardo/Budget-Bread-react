@@ -32,17 +32,20 @@ function EditTransactionForm() {
 
 	//This allows the form to be pre-filled with the Transaction data
 	useEffect(() => {
-		try {
-			if (currentUser.uid) {
-				axios.get(`${API}/transactions/${id}`).then((response) => {
-					const { data } = response;
-					setTransaction(data);
-				});
+		const prefillForm = async () => {
+			try {
+				const response = await fetch(`${API}/transactions/${id}`);
+				const { data } = await response.json();
+
+				const formattedDate = data.transaction_date
+					? new Date(data.transaction_date).toISOString().split("T")[0]
+					: "";
+				setTransaction({ ...data, transaction_date: formattedDate });
+			} catch (err) {
+				console.log(err);
 			}
-		} catch (error) {
-			console.log(error);
-			navigate("/not-found");
-		}
+		};
+		prefillForm();
 	}, [id]);
 
 	const updateTransaction = async (updatedTransaction) => {
