@@ -48,13 +48,20 @@ function EditTransactionForm() {
 		prefillForm();
 	}, [id]);
 
-	const updateTransaction = async (updatedTransaction) => {
+	const updateTransaction = async (id, updatedTransaction) => {
 		try {
-			await axios
-				.put(`${API}/transactions/${id}`, updatedTransaction)
-				.then(() => {
-					navigate(`/transactions/${id}`);
-				});
+			const response = await fetch(`${API}/transactions/${id}`, {
+				method: "PUT",
+				headers: { "content-type": "application/json" },
+				body: JSON.stringify(updatedTransaction),
+			});
+
+			if (!response.ok) {
+				const { error } = await response.json();
+				throw new Error(error.message);
+			}
+
+			navigate(`/transactions/${id}`);
 		} catch (error) {
 			console.log(error);
 		}
@@ -62,7 +69,7 @@ function EditTransactionForm() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		updateTransaction(transaction, id);
+		updateTransaction(id, transaction);
 	};
 
 	return (
