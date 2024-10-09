@@ -1,8 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
+
+import updateTransaction from "../util/apiFunctions.js/updateTransaction";
+
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { apiURL } from "../util/apiURL";
+
 import { Form, Button, Container, Card, InputGroup } from "react-bootstrap";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import "./EditTransaction.scss";
@@ -47,28 +51,14 @@ function EditTransactionForm() {
 		prefillForm();
 	}, [id]);
 
-	const updateTransaction = async (id, updatedTransaction) => {
+	const handleSubmit = async (e) => {
+		e.preventDefault();
 		try {
-			const response = await fetch(`${API}/transactions/${id}`, {
-				method: "PUT",
-				headers: { "content-type": "application/json" },
-				body: JSON.stringify(updatedTransaction),
-			});
-
-			if (!response.ok) {
-				const { error } = await response.json();
-				throw new Error(error.message);
-			}
-
+			await updateTransaction(id, transaction);
 			navigate(`/transactions/${id}`);
 		} catch (error) {
 			console.log(error);
 		}
-	};
-
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		updateTransaction(id, transaction);
 	};
 
 	return (
