@@ -2,16 +2,14 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 import updateTransaction from "../util/apiFunctions.js/updateTransaction";
+import getTransactionById from "../util/apiFunctions.js/getTransactionById";
 
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { apiURL } from "../util/apiURL";
 
 import { Form, Button, Container, Card, InputGroup } from "react-bootstrap";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import "./EditTransaction.scss";
-
-const API = apiURL();
 
 function EditTransactionForm() {
 	const navigate = useNavigate();
@@ -27,18 +25,10 @@ function EditTransactionForm() {
 		transaction_vendor: "",
 	});
 
-	const handleChange = (e) => {
-		setTransaction((currentTransaction) => {
-			return { ...currentTransaction, [e.target.id]: e.target.value };
-		});
-	};
-
-	//This allows the form to be pre-filled with the Transaction data
 	useEffect(() => {
 		const prefillForm = async () => {
 			try {
-				const response = await fetch(`${API}/transactions/${id}`);
-				const { data } = await response.json();
+				const data = await getTransactionById(id);
 
 				const formattedDate = data.transaction_date
 					? new Date(data.transaction_date).toISOString().split("T")[0]
@@ -50,6 +40,12 @@ function EditTransactionForm() {
 		};
 		prefillForm();
 	}, [id]);
+
+	const handleChange = (e) => {
+		setTransaction((currentTransaction) => {
+			return { ...currentTransaction, [e.target.id]: e.target.value };
+		});
+	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
