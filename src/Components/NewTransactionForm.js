@@ -2,9 +2,9 @@ import React from "react";
 
 import { useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
-import { apiURL } from "../util/apiURL";
 import { useAuth } from "../context/AuthContext";
 
+import addNewTransaction from "../util/apiFunctions.js/addNewTransaction";
 import ErrorView from "./ErrorView";
 
 import { Container, Form, Button, InputGroup, Card } from "react-bootstrap";
@@ -12,7 +12,6 @@ import "./NewTransactionForm.scss";
 
 function NewTransactionForm() {
 	let navigate = useNavigate();
-	const API = apiURL();
 	const { currentUser } = useAuth();
 
 	const [transaction, setTransaction] = useState({
@@ -24,34 +23,21 @@ function NewTransactionForm() {
 	});
 	const [errorMsg, setErrorMsg] = useState("");
 
-	const addTransaction = async (newTransaction) => {
-		try {
-			const response = await fetch(`${API}/transactions`, {
-				method: "POST",
-				headers: { "content-type": "application/json" },
-				body: JSON.stringify(newTransaction),
-			});
-			if (response.ok) {
-				navigate("/transactions");
-			} else {
-				const { error } = await response.json();
-				setErrorMsg(error);
-			}
-		} catch (err) {
-			setErrorMsg(err.message);
-		}
-	};
-
 	const handleChange = (e) => {
 		setTransaction((currentTransactions) => {
 			return { ...currentTransactions, [e.target.id]: e.target.value };
 		});
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		transaction.current_user_id = currentUser.uid;
-		addTransaction(transaction);
+		try {
+			await addNewTransaction(transaction);
+			navigate("/transactions");
+		} catch (err) {
+			setErrorMsg(err.message);
+		}
 	};
 
 	return (
