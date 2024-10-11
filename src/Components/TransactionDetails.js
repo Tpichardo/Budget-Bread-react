@@ -4,6 +4,7 @@ import { apiURL } from "../util/apiURL";
 import { Link, useParams, useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
+import deleteTransaction from "../util/apiFunctions.js/deleteTransaction";
 import ErrorView from "./ErrorView";
 
 import { BsTrash } from "react-icons/bs";
@@ -39,27 +40,12 @@ function TransactionDetails() {
 		fetchTransactionById(id);
 	}, [id]);
 
-	const deleteTransaction = async (id) => {
-		try {
-			const response = await fetch(`${API}/transactions/${id}`, {
-				method: "DELETE",
-				headers: { "content-type": "application/json" },
-			});
-			if (!response.ok) {
-				const { error } = await response.json();
-				throw new Error(error.message);
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
 	const handleDelete = async () => {
 		try {
 			await deleteTransaction(id);
 			navigate("/transactions");
 		} catch (error) {
-			console.log(error);
+			setErrorMsg(error);
 		}
 	};
 
