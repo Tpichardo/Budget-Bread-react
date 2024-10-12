@@ -1,9 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { apiURL } from "../util/apiURL";
 import { Link, useParams, useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
+import getTransactionById from "../util/apiFunctions.js/getTransactionById";
 import deleteTransaction from "../util/apiFunctions.js/deleteTransaction";
 import ErrorView from "./ErrorView";
 
@@ -12,8 +12,6 @@ import { GrEdit } from "react-icons/gr";
 import { Button, Card, Container } from "react-bootstrap";
 
 import "./TransactionDetails.scss";
-
-const API = apiURL();
 
 function TransactionDetails() {
 	const [transaction, setTransaction] = useState([]);
@@ -25,14 +23,8 @@ function TransactionDetails() {
 	useEffect(() => {
 		const fetchTransactionById = async () => {
 			try {
-				const response = await fetch(`${API}/transactions/${id}`);
-				if (response.ok) {
-					const { data } = await response.json();
-					setTransaction(data);
-				} else {
-					const { error } = await response.json();
-					setErrorMsg(error);
-				}
+				const data = await getTransactionById(id);
+				setTransaction(data);
 			} catch (err) {
 				setErrorMsg(err.message);
 			}
